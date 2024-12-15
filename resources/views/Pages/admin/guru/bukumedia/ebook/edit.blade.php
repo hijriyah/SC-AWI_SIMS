@@ -1,0 +1,208 @@
+@extends('layouts.layout')
+
+@section('content')
+
+<script>
+
+$(document).ready(function () {
+
+    const inputElement = document.querySelector('#filepond');
+    // const pond = FilePond.create(inputElement);
+    const pond = FilePond.create(inputElement, {
+        allowFileSizeValidation: true,
+        maxFileSize: '2MB'
+    });
+
+    FilePond.setOptions({
+        storeAsFile: true,
+        allowImagePreview: true,
+        imagePreviewHeight: 170,
+        server: {
+            process: {
+                url: "{{ route('guru_bukumedia-ebooks_update', ['uuid' => $dataEdit->uuid]) }}",
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                onload: (response) => {
+                    console.log(response);
+                },
+                onerror: (response) => {
+                    console.log(response);
+                },
+            },
+        },
+    });
+
+    
+    var fileData = null;
+    $.ajax({
+        url: '{{ url('storage/' . $dataEdit->file) }}',
+        type: 'GET',
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: (response) => {
+            fileData = new File([response], '{{ basename($dataEdit->file) }}', {
+                type: 'application/pdf',
+                size: '{{ $fileSize }}',
+            });
+            pond.addFiles(fileData);
+
+            $('#tugasForm').on('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                
+                pond.getFiles().forEach(function(file) {
+                    formData.append('filepond[]', file.file);
+                });
+
+                $.ajax({
+                    url: "{{ route('guru_bukumedia-ebooks_update', ['uuid' => $dataEdit->uuid]) }}",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    success: function (response) {
+                        toastr.success("data berhasil disimpan");
+                        setTimeout(() => {
+                            window.location.href = "{{ route('guru_bukumedia-ebooks_page') }}";
+                        }, 2000);
+                    },
+                    error: function (response) {
+                        toastr.error('gagal mengupload data');
+                    }
+                });
+            });
+            
+
+                
+        }
+        
+    });
+ 
+
+});
+
+</script>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="page-title mb-0 font-size-18">Dashboard</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item active">Selamat Datang Di {{ $adminSession }} Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 0px; margin-bottom: 500px;">
+   <div class="col-lg-12">
+       <div class="card">
+           <div class="card-body">
+                <div class="position-custom">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mb-3"><b>Edit Ebooks</b></h4>
+                        <div></div>
+                        
+                    </div>
+                </div>
+
+               {{-- <p class="card-title-desc">Examples of twitter bootstrap datepicker.</p> --}}
+
+               <form id="tugasForm" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-4">
+                                <label class="form-label">Judul</label>
+                                <input class="form-control" name="judul" value="{{ $dataEdit->judul }}" />
+                                @error('judul')
+                                    <span class="text-sm text-danger">{{ $message }}</span>
+                                @enderror
+                                <!-- input-group -->
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-4">
+                                <label class="form-label">Author</label>
+                                <input class="form-control" name="author" value="{{ $dataEdit->author }}" />
+                                @error('author')
+                                    <span class="text-sm text-danger">{{ $message }}</span>
+                                @enderror
+                                <!-- input-group -->
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                           <label class="form-label">Kelas</label>
+                           <select class="form-select" placeholder="Pilih" name="id_kelas">
+                              <option selected disabled>Pilih</option>
+                              @foreach($dataKelas as $kelas)
+                                 <option value="{{ $kelas->id }}" {{ old('id_kelas', $kelas->id) == $dataEdit->id_kelas ? 'selected' : ''}}>{{ $kelas->id }}</option>
+                              @endforeach
+                          </select>
+                            @error('id_kelas')
+                                <span class="text-sm text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="mb-4">
+                                <label class="form-label">Authority</label>
+                                <input class="form-control" name="authority" value="{{ $dataEdit->authority }}" />
+                                @error('authority')
+                                    <span class="text-sm text-danger">{{ $message }}</span>
+                                @enderror
+                                <!-- input-group -->
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 mb-4">
+                            <label class="form-label">Cover Ebooks</label>
+                            <div class="input-group">
+                                <input type="file" class="form-control" accept=".jpg, .jpeg, .png" name="file" value="{{ $dataEdit->coverfoto }}" />
+                                <span class="input-group-text"><i class="mdi mdi-panorama"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="mb-4">
+                            <label class="form-label">File</label>
+                            <div class="input-group">
+                            <input type="file" 
+                            id="filepond"
+                            class="filepond"
+                            name="filepond[]" 
+                            data-allow-reorder="true"
+                            data-max-file-size="2MB"
+                            data-max-files="1"
+                            />
+
+                            @error('file')
+                                <span class="text-sm text-danger">{{ $message }}</span>
+                            @enderror
+                            </div>
+                        </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-sm btn-success" style="height: 29px; margin-right: 10px;"><i class="mdi mdi-telegram"></i> Kirim</button>
+                        <a href="{{ route('guru_bukumedia-ebooks_page') }}" class="btn btn-sm btn-danger" style="height: 29px;"><i class="mdi mdi-keyboard-backspace"></i> Kembali</a>
+                    </div>
+               </form>
+           </div>
+       </div>
+   </div>
+</div>
+<!-- end row -->
+
+@endsection
