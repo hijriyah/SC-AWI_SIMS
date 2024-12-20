@@ -23,7 +23,7 @@
         var search = $('#search').val();
 
         $.ajax({
-            url: "{{ route('orangtua_master_page') }}",
+            url: "{{ route('guru_kesiswaan-pelanggaran_page') }}",
             type: "GET",
             data: { search: search},
             success: function(response) {
@@ -59,7 +59,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/administrator/dashboard/master/orangtua/delete/" + uuid,
+                        url: "/guru/dashboard/kesiswaan/pelanggaran/delete/" + uuid,
                         type: 'POST',
                         data: {
                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -111,44 +111,39 @@
                     <div class="display-position" style="margin-bottom: 20px;">
                         <div class="d-flex justify-content-between">
                             <div style="margin-top: 0px;">
-                                <h4 class="card-title" style="width: 130px;"><b>Daftar Orangtua</b></h4>
+                                <h4 class="card-title" style="width: 150px;"><b>Daftar Pelanggaran</b></h4>
                             </div>
-                            <div class="col-md-3" style="margin-left: 680px; margin-right: 10px;">
+                            <div class="col-md-5" style="margin-left: 205px; margin-right: 10px;">
                                 <input class="form-control" placeholder="Search" style="height: 32px;" id="search" name="search" onkeyup="SearchData()" />     
+                            </div> 
+                            <div style="margin-top: 0px; width: 100px;">
+                                <a class="btn btn-sm btn-success" href="{{ route('guru_kesiswaan-pelanggaran_add') }}"><i class="mdi mdi-plus"></i> Tambah</a>
                             </div>
-                            <a class="btn btn-sm btn-success" style="height: 29px; !important" href="{{ route('orangtua_master_add') }}"><i class="mdi mdi-plus"></i> Tambah</a>
                         </div>
                     </div>
-                    {{-- <p class="card-title-desc">Table Edits is a lightweight jQuery plugin for making table
-                        rows editable.</p> --}}
-
                     <div class="table-responsive">
                         <table class="table table-editable table-nowrap align-middle table-edits">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama Ayah</th>
-                                    <th>Nama Ibu</th>
-                                    <th>Email</th>
-                                    <th>No Telp</th>
-                                    <th>Aktif</th>
+                                    <th>Jenis Pelanggaran</th>
+                                    <th>Deskripsi</th>
+                                    <th>Poin Pelanggaran</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($dataOrangtua as $item)
+                            <tbody id="table-body">
+                                @foreach ($dataPelanggaran as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_ayah }}</td>
-                                        <td>{{ $item->nama_ibu }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->no_telp }}</td>
-                                        <td>{{ $item->aktif }}</td>                      
+                                        <td>{{ $item->jenis_pelanggaran }} </td>
+                                        <td>{{ $item->deskripsi }} </td>
+                                        <td>{{ $item->poin_pelanggaran }} </td>
                                         <td style="width: 100px">
-                                            <a class="btn btn-outline-info btn-sm edit" title="Edit" href=" {{ route('orangtua_master_edit', ['uuid' => $item->uuid]) }} ">
+                                            <a class="btn btn-outline-info btn-sm edit" title="Edit" href=" {{ route('guru_kesiswaan-pelanggaran_edit', ['uuid' => $item->uuid]) }} ">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <button type="button" class="btn btn-outline-danger btn-sm edit delete-button" title="Delete" id="delete-button" data-uuid="{{ $item->uuid }}">
+                                            <button type="button" class="btn btn-outline-danger btn-sm delete-button" title="Delete" id="delete-button" data-uuid="{{ $item->uuid }}">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </td>
@@ -158,13 +153,12 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-start">
-                        {{ $dataOrangtua->links() }}
+                        {{ $dataPelanggaran->links() }}
                     </div>
                 </div>
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
-
 </div>
 <!-- End Page-content -->
 

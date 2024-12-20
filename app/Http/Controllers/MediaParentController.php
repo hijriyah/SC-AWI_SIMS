@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\mediaParent;
 use App\Models\siswa;
 use App\Models\guru;
+use App\Models\orangtua;
 use App\Models\Role;
 
 class MediaParentController extends Controller
@@ -244,4 +245,24 @@ class MediaParentController extends Controller
 
         return view('Pages.admin.siswa.bukumedia.mediapembelajaran.mediapembelajaran', compact(['adminSession', 'specAdmin', 'listMenu', 'query']));
     }
+
+
+     // this for admin orangtua
+     public function index4(Request $request)
+     {
+         //
+         $adminSession = session('admin_name');
+ 
+         // orangtua
+         $roleGet = orangtua::where('username', $adminSession)->first();
+         $roleStatus = Role::find($roleGet->role_id);
+         $specAdmin = $roleStatus->name;
+ 
+         $roleCheck = new Role;
+         $listMenu = $roleCheck->permissionsId($roleGet->role_id);
+ 
+         $query = mediaParent::with('mediaSubF1.mediaSubF2.mediaFile')->get();
+ 
+         return view('Pages.admin.orangtua.bukumedia.mediapembelajaran.mediapembelajaran', compact(['adminSession', 'specAdmin', 'listMenu', 'query']));
+     }
 }

@@ -666,9 +666,9 @@
                                 </a>
                             
                             <ul class="sub-menu" aria-expanded="true">
-                                    <li><a href="{{ route('kesiswaan_tatatertib_page') }}" class="">{{ $listMenu['Tata Tertib'] }}</a></li>
-                                    <li><a href="{{ route('kesiswaan_pelanggaran_page') }}" class="">{{ $listMenu['Pelanggaran'] }}</a></li>
-                                    <li><a href="{{ route('kesiswaan_sanksipelanggaran_page') }}" class="">{{ $listMenu['Sanksi Pelanggaran'] }}</a></li>
+                                    <li><a href="{{ route('guru_kesiswaan-tatatertib_page') }}" class="">{{ $listMenu['Tata Tertib'] }}</a></li>
+                                    <li><a href="{{ route('guru_kesiswaan-pelanggaran_page') }}" class="">{{ $listMenu['Pelanggaran'] }}</a></li>
+                                    <li><a href="{{ route('guru_kesiswaan-sanksipelanggaran_page') }}" class="">{{ $listMenu['Sanksi Pelanggaran'] }}</a></li>
                                     <li><a href="{{ route('guru_kesiswaan-datapelanggaran_page') }}" class="">{{ $listMenu['Data Pelanggaran'] }}</a></li>
                                 
                             </ul>
@@ -683,12 +683,12 @@
                         <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <i class="mdi mdi-clipboard-outline"></i>
-                                    <span>{{ $listMenu['Bimbingan Konseling (BK)'] }}</span>
+                                    <span>{{ $listMenu['Bimbingan Konseling'] }}</span>
                                 </a>
                             
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="{{ route('bk_bimbingankonseling_page') }}" class="">{{ $listMenu['Bimbingan Konseling'] }}</a></li>
-                                <li><a href="{{ route('bk_databimbingankonseling_page') }}" class="">{{ $listMenu['Data Bimbingan Konseling'] }}</a></li>
+                                <li><a href="{{ route('guru_bk-bimbingankonseling_page') }}" class="">{{ $listMenu['Bimbingan Konseling'] }}</a></li>
+                                <li><a href="{{ route('guru_bk-databimbingankonseling_page') }}" class="">{{ $listMenu['Data Bimbingan Konseling'] }}</a></li>
                             </ul>
                         </li>
                     
@@ -983,6 +983,46 @@
                     </ul>
                 </li>
                 {{-- end akademik --}}
+
+                {{-- start Buku & Media --}}
+                <li class="menu-title"><span>{{ $listMenu['Buku & Media'] }}</span></li>
+                <li>
+                    <li>
+                        <a href="{{ route('orangtua_bukumedia-ebooks_page') }}" class="">
+                            <i class="mdi mdi-book"></i>
+                            <span>{{ $listMenu['E-Books'] }}</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="{{ route('orangtua_bukumedia-mediaparent_page') }}" class="">
+                            <i class="mdi mdi-bulletin-board"></i>
+                            <span>{{ $listMenu['Media Pembelajaran'] }}</span>
+                        </a>
+                    </li>            
+                </li>
+                {{-- end Buku & Media --}}
+
+                {{-- start Penjadwalan --}}
+                <li class="menu-title"><span>{{ $listMenu['Penjadwalan'] }}</span></li>
+                <li>
+                        
+                        <li>
+                            <a href="{{ route('orangtua_penjadwalan-jadwalpelajaran_page') }}" class="">
+                                <i class="mdi mdi-calendar-multiple"></i>
+                                <span>{{ $listMenu['Jadwal Pelajaran'] }}</span>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="{{ route('orangtua_penjadwalan-jadwalpertemuan_page') }}" class="">
+                                <i class="mdi mdi-calendar-multiple-check"></i>
+                                <span>{{ $listMenu['Jadwal Pertemuan'] }}</span>
+                            </a>
+                        </li>
+                    
+                </li>
+
                 @endif
                 {{-- end Orangtua Role --}}
 

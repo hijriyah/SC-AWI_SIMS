@@ -16,7 +16,7 @@ class orangtua extends Authenticatable
     use Uuid;
 
     protected $fillable = [
-        'nama',
+        // 'nama',
         'nama_ayah',
         'nama_ibu',
         'pekerjaan_ayah',

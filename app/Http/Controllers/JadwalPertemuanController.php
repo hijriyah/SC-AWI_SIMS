@@ -6,6 +6,7 @@ use App\Models\JadwalPertemuan;
 use Illuminate\Http\Request;
 use App\Models\guru;
 use App\Models\siswa;
+use App\Models\orangtua;
 use App\Models\Role;
 
 class JadwalPertemuanController extends Controller
@@ -172,6 +173,32 @@ class JadwalPertemuanController extends Controller
     }
 
     public function GetEvents3()
+    {
+        $Events = JadwalPertemuan::select('id', 'title', 'start', 'end')->get();
+
+        return response()->json($Events);
+    }
+
+    // this for admin orangtua
+    public function index4()
+    {
+        //
+        $adminSession = session('admin_name');
+
+        // orangtua
+        $roleGet = orangtua::where('username', $adminSession)->first();
+        $roleStatus = Role::find($roleGet->role_id);
+        $specAdmin = $roleStatus->name;
+ 
+        $roleCheck = new Role;
+        $listMenu = $roleCheck->permissionsId($roleGet->role_id);
+
+        // $dataKalenderAkademik = KalenderAkademik::select('nama', 'warna', 'tanggal');
+
+        return view('Pages.admin.orangtua.penjadwalan.jadwalpertemuan.jadwalpertemuan', compact(['adminSession', 'specAdmin', 'listMenu']));
+    }
+
+    public function GetEvents4()
     {
         $Events = JadwalPertemuan::select('id', 'title', 'start', 'end')->get();
 

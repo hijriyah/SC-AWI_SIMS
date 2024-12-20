@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\kelas;
 use App\Models\siswa;
 use App\Models\guru;
+use App\Models\orangtua;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -500,5 +501,47 @@ class EbooksController extends Controller
         }
 
         return view('Pages.admin.siswa.bukumedia.ebook.ebook', compact(['adminSession', 'specAdmin', 'listMenu', 'dataEbooks']));
+    }
+
+    // this for admin orangtua
+    public function index4(Request $request)
+    {
+        //
+        $adminSession = session('admin_name');
+
+        // orangtua
+        $roleGet = orangtua::where('username', $adminSession)->first();
+        $roleStatus = Role::find($roleGet->role_id);
+        $specAdmin = $roleStatus->name;
+
+        $roleCheck = new Role;
+        $listMenu = $roleCheck->permissionsId($roleGet->role_id);
+
+        $query = ebooks::query();
+        
+        if($request->has('search'))
+        {
+            $query->where('judul', 'like', "%{$request->search}%")
+
+            ->orwhereHas('kelas', function($q) use ($request) {
+                $q->where('nama_kelas', 'like', "%{$request->search}%");
+
+            });
+        }
+
+        $dataEbooks = $query->with(['kelas'])->paginate(10);
+
+        if($request->ajax())
+        {
+            $html = view('Pages.admin.orangtua.bukumedia.ebook.partials.table', compact('dataEbooks'))->render();
+
+            return response()->json([
+                'html' => $html
+            ]);
+            // return view('Pages.master.guru.guru', compact(['adminSession', 'specAdmin', 'listMenu', 'dataGuru']))->render();
+
+        }
+
+        return view('Pages.admin.orangtua.bukumedia.ebook.ebook', compact(['adminSession', 'specAdmin', 'listMenu', 'dataEbooks']));
     }
 }

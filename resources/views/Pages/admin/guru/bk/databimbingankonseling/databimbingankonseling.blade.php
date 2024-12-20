@@ -23,7 +23,7 @@
         var search = $('#search').val();
 
         $.ajax({
-            url: "{{ route('orangtua_master_page') }}",
+            url: "{{ route('guru_bk-databimbingankonseling_page') }}",
             type: "GET",
             data: { search: search},
             success: function(response) {
@@ -59,7 +59,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "/administrator/dashboard/master/orangtua/delete/" + uuid,
+                        url: "/guru/dashboard/bk/databimbingankonseling/delete/" + uuid,
                         type: 'POST',
                         data: {
                             _token: $('meta[name="csrf-token"]').attr('content'),
@@ -111,44 +111,42 @@
                     <div class="display-position" style="margin-bottom: 20px;">
                         <div class="d-flex justify-content-between">
                             <div style="margin-top: 0px;">
-                                <h4 class="card-title" style="width: 130px;"><b>Daftar Orangtua</b></h4>
+                                <h4 class="card-title" style="width: 250px;"><b>Daftar Data Siswa Konseling</b></h4>
                             </div>
-                            <div class="col-md-3" style="margin-left: 680px; margin-right: 10px;">
+                            <div class="col-md-5" style="margin-left: 120px; margin-right: 10px;">
                                 <input class="form-control" placeholder="Search" style="height: 32px;" id="search" name="search" onkeyup="SearchData()" />     
+                            </div> 
+                            <div style="margin-top: 0px; width: 100px;">
+                                <a class="btn btn-sm btn-success" href="{{ route('guru_bk-databimbingankonseling_add') }}"><i class="mdi mdi-plus"></i> Tambah </a>
                             </div>
-                            <a class="btn btn-sm btn-success" style="height: 29px; !important" href="{{ route('orangtua_master_add') }}"><i class="mdi mdi-plus"></i> Tambah</a>
                         </div>
                     </div>
-                    {{-- <p class="card-title-desc">Table Edits is a lightweight jQuery plugin for making table
-                        rows editable.</p> --}}
-
                     <div class="table-responsive">
                         <table class="table table-editable table-nowrap align-middle table-edits">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama Ayah</th>
-                                    <th>Nama Ibu</th>
-                                    <th>Email</th>
-                                    <th>No Telp</th>
-                                    <th>Aktif</th>
+                                    <th>Kelas</th>
+                                    <th>Siswa</th>
+                                    <th>Bimbingan Konseling</th>
+                                    <th>Saran</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($dataOrangtua as $item)
+                            <tbody id="table-body">
+                                @foreach ($dataDataBimbinganKonseling as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->nama_ayah }}</td>
-                                        <td>{{ $item->nama_ibu }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->no_telp }}</td>
-                                        <td>{{ $item->aktif }}</td>                      
+                                       <td>{{ $loop->iteration }}</td>
+                                       <td>{{ $item->kelas->nama_kelas}} </td>
+                                       <td>{{ $item->siswa->nama_lengkap}} </td>
+                                       <td>{{ $item->bimbingankonseling->jenis_konseling}} </td>
+                                       <td>{{ $item->saran}} </td>
+      
                                         <td style="width: 100px">
-                                            <a class="btn btn-outline-info btn-sm edit" title="Edit" href=" {{ route('orangtua_master_edit', ['uuid' => $item->uuid]) }} ">
+                                            <a class="btn btn-outline-info btn-sm edit" title="Edit" href=" {{ route('guru_bk-bimbingankonseling_edit', ['uuid' => $item->uuid]) }} ">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <button type="button" class="btn btn-outline-danger btn-sm edit delete-button" title="Delete" id="delete-button" data-uuid="{{ $item->uuid }}">
+                                            <button type="button" class="btn btn-outline-danger btn-sm delete-button" title="Delete" id="delete-button" data-uuid="{{ $item->uuid }}">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </td>
@@ -158,13 +156,12 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-start">
-                        {{ $dataOrangtua->links() }}
+                        {{ $dataDataBimbinganKonseling->links() }}
                     </div>
                 </div>
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
-
 </div>
 <!-- End Page-content -->
 

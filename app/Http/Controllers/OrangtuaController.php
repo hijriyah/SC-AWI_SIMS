@@ -75,7 +75,7 @@ class OrangtuaController extends Controller
         //
         // dd($request->all());
         $validation = $request->validate([
-            'nama' => 'required',
+            // 'nama' => 'required',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
             'pekerjaan_ayah' => 'required',
@@ -100,7 +100,7 @@ class OrangtuaController extends Controller
         $roleOrangtua= Role::where('name', 'Orang tua')->first();
 
         $data = orangtua::create([
-            'nama' => $request->nama,
+            // 'nama' => $request->nama,
             'nama_ayah' => $request->nama_ayah,
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ayah' => $request->pekerjaan_ayah,

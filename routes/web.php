@@ -891,6 +891,31 @@ Route::prefix('guru')->middleware('auth:guru')->group(function() {
       });
 
       Route::prefix('kesiswaan')->group(function () {
+
+         // kesiswaan - tata tertib
+         Route::get('/tatatertib', [TataTertibController::class, 'index2'])->name('guru_kesiswaan-tatatertib_page');
+         Route::get('/tatatertib/add', [TataTertibController::class, 'storePage2'])->name('guru_kesiswaan-tatatertib_add');
+         Route::post('/tatatertib/store', [TataTertibController::class, 'store2'])->name('guru_kesiswaan-tatatertib_store');
+         Route::get('/tatatertib/edit/{uuid}', [TataTertibController::class, 'edit2'])->name('guru_kesiswaan-tatatertib_edit');
+         Route::put('/tatatertib/update/{uuid}', [TataTertibController::class, 'update2'])->name('guru_kesiswaan-tatatertib_update');
+         Route::delete('/tatatertib/delete/{uuid}', [TataTertibController::class, 'destroy2'])->name('guru_kesiswaan-tatatertib_delete');
+
+         // kesiswaan - pelanggaran
+         Route::get('/pelanggaran', [PelanggaranController::class, 'index2'])->name('guru_kesiswaan-pelanggaran_page');
+         Route::get('/pelanggaran/add', [PelanggaranController::class, 'storePage2'])->name('guru_kesiswaan-pelanggaran_add');
+         Route::post('/pelanggaran/store', [PelanggaranController::class, 'store2'])->name('guru_kesiswaan-pelanggaran_store');
+         Route::get('/pelanggaran/edit/{uuid}', [PelanggaranController::class, 'edit2'])->name('guru_kesiswaan-pelanggaran_edit');
+         Route::put('/pelanggaran/update/{uuid}', [PelanggaranController::class, 'update2'])->name('guru_kesiswaan-pelanggaran_update');
+         Route::delete('/pelanggaran/delete/{uuid}', [PelanggaranController::class, 'destroy2'])->name('guru_kesiswaan-pelanggaran_delete');
+ 
+         // kesiswaan - sanksi pelanggaran
+         Route::get('/sanksipelanggaran', [SanksiPelanggaranController::class, 'index2'])->name('guru_kesiswaan-sanksipelanggaran_page');
+         Route::get('/sanksipelanggaran/add', [SanksiPelanggaranController::class, 'storePage2'])->name('guru_kesiswaan-sanksipelanggaran_add');
+         Route::post('/sanksipelanggaran/store', [SanksiPelanggaranController::class, 'store2'])->name('guru_kesiswaan-sanksipelanggaran_store');
+         Route::get('/sanksipelanggaran/edit/{uuid}', [SanksiPelanggaranController::class, 'edit2'])->name('guru_kesiswaan-sanksipelanggaran_edit');
+         Route::put('/sanksipelanggaran/update/{uuid}', [SanksiPelanggaranController::class, 'update2'])->name('guru_kesiswaan-sanksipelanggaran_update');
+         Route::delete('/sanksipelanggaran/delete/{uuid}', [SanksiPelanggaranController::class, 'destroy2'])->name('guru_kesiswaan-sanksipelanggaran_delete');
+
           // kesiswaan - data pelanggaran
          Route::get('/datapelanggaran', [DataPelanggaranController::class, 'index2'])->name('guru_kesiswaan-datapelanggaran_page');
          Route::get('/datapelanggaran/add', [DataPelanggaranController::class, 'storePage2'])->name('guru_kesiswaan-datapelanggaran_add');
@@ -898,6 +923,25 @@ Route::prefix('guru')->middleware('auth:guru')->group(function() {
          Route::get('/datapelanggaran/edit/{uuid}', [DataPelanggaranController::class, 'edit2'])->name('guru_kesiswaan-datapelanggaran_edit');
          Route::put('/datapelanggaran/update/{uuid}', [DataPelanggaranController::class, 'update2'])->name('guru_kesiswaan-datapelanggaran_update');
          Route::delete('/datapelanggaran/delete/{uuid}', [DataPelanggaranController::class, 'destroy2'])->name('guru_kesiswaan-datapelanggaran_delete');
+      });
+
+      Route::prefix('bk')->group(function () {
+         // bk - bimbingan konseling
+         Route::get('/bimbingankonseling', [BimbinganKonselingController::class, 'index2'])->name('guru_bk-bimbingankonseling_page');
+         Route::get('/bimbingankonseling/add', [BimbinganKonselingController::class, 'storePage2'])->name('guru_bk-bimbingankonseling_add');
+         Route::post('/bimbingankonseling/store', [BimbinganKonselingController::class, 'store2'])->name('guru_bk-bimbingankonseling_store');
+         Route::get('/bimbingankonseling/edit/{uuid}', [BimbinganKonselingController::class, 'edit2'])->name('guru_bk-bimbingankonseling_edit');
+         Route::put('/bimbingankonseling/update/{uuid}', [BimbinganKonselingController::class, 'update2'])->name('guru_bk-bimbingankonseling_update');
+         Route::delete('/bimbingankonseling/delete/{uuid}', [BimbinganKonselingController::class, 'destroy2'])->name('guru_bk-bimbingankonseling_delete');
+
+         // bk - data bimbingan konseling
+         Route::get('/databimbingankonseling', [DataBimbinganKonselingController::class, 'index2'])->name('guru_bk-databimbingankonseling_page');
+         Route::get('/databimbingankonseling/add', [DataBimbinganKonselingController::class, 'storePage2'])->name('guru_bk-databimbingankonseling_add');
+         Route::post('/databimbingankonseling/store', [DataBimbinganKonselingController::class, 'store2'])->name('guru_bk-databimbingankonseling_store');
+         Route::get('/databimbingankonseling/edit/{uuid}', [DataBimbinganKonselingController::class, 'edit2'])->name('guru_bk-databimbingankonseling_edit');
+         Route::put('/databimbingankonseling/update/{uuid}', [DataBimbinganKonselingController::class, 'update2'])->name('guru_bk-databimbingankonseling_update');
+         Route::delete('/databimbingankonseling/delete/{uuid}', [DataBimbinganKonselingController::class, 'destroy2'])->name('guru_bk-databimbingankonseling_delete');
+
       });
 
       Route::prefix('bukumedia')->group(function () {
@@ -1048,7 +1092,24 @@ Route::prefix('orangtua')->middleware('auth:orangtua')->group(function () {
 
       // akademik tugassiswa
       Route::get('/tugassiwa', [TugasSiswaController::class, 'index4'])->name('orangtua_akademik-tugassiswa_page');
+   });
 
+   Route::prefix('bukumedia')->group(function () {
+      // bukumedia ebooks for admin siswa
+      Route::get('/ebooks', [EbooksController::class, 'index4'])->name('orangtua_bukumedia-ebooks_page');
+
+      // bukumedia media pembelajaran for admin siswa
+      Route::get('/mediaparent', [MediaParentController::class, 'index4'])->name('orangtua_bukumedia-mediaparent_page');
+   });
+
+   Route::prefix('penjadwalan')->group(function () {
+      // penjadwalan jadwal pelajaran for admin siswa
+      Route::get('/jadwalpelajaran', [JadwalPelajaranController::class, 'index4'])->name('orangtua_penjadwalan-jadwalpelajaran_page');
+
+      // penjadwalan jadwal pertemuan for admin guru
+      Route::get('/jadwalpertemuan', [JadwalPertemuanController::class, 'index4'])->name('orangtua_penjadwalan-jadwalpertemuan_page');
+      // Get Events
+      Route::get('/jadwalpertemuan/events', [JadwalPertemuanController::class, 'GetEvents4'])->name('orangtua_penjadwalan-jadwalpertemuan_events');
    });
    
 
