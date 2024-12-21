@@ -41,14 +41,12 @@
                                 @endif
                                 </div>
                             </div>
-
-                            <div class="mt-3 ">
-                                <a href="#" class="text-reset fw-medium font-size-16">{{ $dataInfo->nama_lengkap }}</a>
-                                <p class="text-body mt-1 mb-1">{{ $dataInfo->kelas->nama_kelas }}</p>
-                                <p class="text-body mt-1 mb-1">{{ $dataInfo->section->section }}</p>
-                            </div>
                         </div>
-
+                        <div class="mt-3 text-center">
+                            <a href="#" class="text-reset fw-medium font-size-16">{{ $dataInfo->username }}</a>
+                            {{-- <p class="text-body mt-1 mb-1">{{ $dataInfo->kelas->nama_kelas }}</p>
+                            <p class="text-body mt-1 mb-1">{{ $dataInfo->section->section }}</p> --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,29 +67,15 @@
                     <div class="d-flex-justify content-start" style="line-height: 0.6;">
                         <div class="row">
                             <div class="col-md-6">
-                                <p>Nama Lengkap: {{ $dataInfo->nama_lengkap }}</p>
-                                <p>Nama Panggilan: {{ $dataInfo->nama_panggilan }}</p>
-                                <p>Tempat Lahir: {{ $dataInfo->tempat_lahir }}</p>
-                                <p>Tanggal Lahir: {{ $dataInfo->tanggal_lahir }}</p>
-                                <p>Jenis Kelamin: {{ $dataInfo->jenis_kelamin }}</p>
-                                <p>Agama: {{ $dataInfo->agama }}</p>
+                                <p>Nama Ayah: {{ $dataInfo->nama_ayah}}</p>
+                                <p>Nama Ibu: {{ $dataInfo->nama_ibu }}</p>
+                                <p>Pekerjaan Ayah: {{ $dataInfo->pekerjaan_ayah }}</p>
+                                <p>Pekerjaan Ibu: {{ $dataInfo->pekerjaan_ibu }}</p>
                                 <p>Email: {{ $dataInfo->email }}</p>
-                                <p>No Telepon: {{ $dataInfo->no_telp }}</p>
-                                <p>Alamat: {{ $dataInfo->alamat }}</p>
-                                <p>kelas: {{ $dataInfo->kelas->nama_kelas }}</p>
-                            </div>
-                            <div class="col-md-6">
-                              
-                                <p>Section: {{ $dataInfo->section->section }}</p>
-                                <p>Golongan Darah: {{ $dataInfo->golongan_darah }}</p>
-                                <p>Kebangsaan: {{ $dataInfo->kebangsaan }}</p>
-                                <p>Negara: {{ $dataInfo->negara }}</p>
-                                <p>Nomor Register: {{ $dataInfo->nomor_register }}</p>
-                                <p>Tanggal Masuk {{ $dataInfo->tanggal_masuk }}</p>
-                                <p>Orang Tua: {{ $dataInfo->orangtua->nama }}</p>
-                                <p>Tahun Ajaran: {{ $dataInfo->tahunajaran->tahun_ajaran }}</p> 
+                                <p>No Telp: {{ $dataInfo->no_telp }}</p>
+                                <p>Alamat: {{ $dataInfo->alamat}}</p>
                                 @if($dataInfo->aktif == "ya")
-                                    <p>Aktif: <span class="badge bagde-soft-successs">Ya</span></p> 
+                                    <p>Aktif: <span class="badge badge-soft-success">Ya</span></p> 
                                 @else
                                     <p>Aktif: <span class="badge badge-soft-danger">Tidak</span></p> 
                                 @endif

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('judul');
             $table->longtext('deskripsi');
             $table->string('file')->nullable();
-            $table->enum('status', ['akan_dilaksanakan', 'sedang_dilaksanakan', 'berakhir']);
+            $table->enum('status', ['akan dilaksanakan', 'sedang dilaksanakan', 'berakhir']);
             
             $table->timestamps();
         });

@@ -238,4 +238,5 @@ class OrangtuaController extends Controller
         return view('Pages.admin.guru.master.orangtua.info', compact(['adminSession', 'specAdmin', 'listMenu', 'dataInfo']));
     }
 
+
 }

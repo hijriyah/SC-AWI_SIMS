@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\event;
 use App\Models\Role;
 use App\Models\guru;
+use App\Models\orangtua;
 use App\Models\siswa;
 use App\Models\tahunajaran;
 use Illuminate\Support\Facades\DB;
@@ -270,5 +271,45 @@ class EventController extends Controller
         }
 
         return view('Pages.admin.siswa.pemberitahuan.events.events', compact(['adminSession', 'specAdmin', 'listMenu', 'dataEvent']));
+    }
+
+    // this for admin orangtua
+    public function index4(Request $request)
+    {
+        //
+        $adminSession = session('admin_name');
+
+        // Guru
+        $roleGet = orangtua::where('username', $adminSession)->first();
+        $roleStatus = Role::find($roleGet->role_id);
+        $specAdmin = $roleStatus->name;
+
+        $roleCheck = new Role;
+        $listMenu = $roleCheck->permissionsId($roleGet->role_id);
+
+        $query = event::query();
+        
+        if($request->has('search'))
+        {
+            $query->where('judul', 'like', "%{$request->search}%")
+
+            ->orwhereHas('tahunajaran', function($q) use ($request) {
+                $q->where('tahun_ajaran', 'like', "%{$request->search}%");
+            });
+        }
+
+        $dataEvent = $query->with(['tahunajaran'])->paginate(10);
+
+        if($request->ajax())
+        {
+            $html = view('Pages.admin.orangtua.pemberitahuan.event.partials.table', compact('dataEvent'))->render();
+
+            return response()->json([
+                'html' => $html
+            ]);
+
+        }
+
+        return view('Pages.admin.orangtua.pemberitahuan.event.event', compact(['adminSession', 'specAdmin', 'listMenu', 'dataEvent']));
     }
 }

@@ -1111,6 +1111,34 @@ Route::prefix('orangtua')->middleware('auth:orangtua')->group(function () {
       // Get Events
       Route::get('/jadwalpertemuan/events', [JadwalPertemuanController::class, 'GetEvents4'])->name('orangtua_penjadwalan-jadwalpertemuan_events');
    });
+
+   
+   Route::prefix('pemberitahuan')->group(function () {
+      // pemberitahuan ekstrakurikuler for admin siswa
+      Route::get('/ekstrakurikuler', [EkstrakurikulerController::class, 'index4'])->name('orangtua_pemberitahuan-ekstrakurikuler_page');
+
+      // pemberitahuan event
+      Route::get('/event', [EventController::class, 'index4'])->name('orangtua_pemberitahuan-event_page');
+
+      // pemberitahuan liburan for admin siswa
+      Route::get('/liburan', [LiburanController::class, 'index4'])->name('orangtua_pemberitahuan-liburan_page');
+
+      // pemberitahuan rencana kegiatan
+      Route::get('/rencanakegiatan', [RencanaKegiatanController::class, 'index4'])->name('orangtua_pemberitahuan-rencanakegiatan_page');
+   });
+
+   Route::prefix('pengaturan')->group(function () {
+      // pengaturan komplain
+      Route::get('/komplain', [KomplainController::class, 'index4'])->name('orangtua_pengaturan-komplain_page');
+      Route::get('/komplain/add', [KomplainController::class, 'storePage4'])->name('orangtua_pengaturan-komplain_add');
+      Route::post('/komplain/store', [KomplainController::class, 'store4'])->name('orangtua_pengaturan-komplain_store');
+      Route::get('/komplain/edit/{uuid}', [KomplainController::class, 'edit4'])->name('orangtua_pengaturan-komplain_edit');
+      Route::put('/komplain/update/{uuid}', [KomplainController::class, 'update4'])->name('orangtua_pengaturan-komplain_update');
+      Route::delete('/komplain/delete/{uuid}', [KomplainController::class, 'destroy4'])->name('orangtua_pengaturan-komplain_delete');
+
+      // pengaturan profile 
+      Route::get('/profile', [ProfileController::class, 'OrangtuaProfile'])->name('orangtua_pengaturan-profile_page');
+   });
    
 
 });

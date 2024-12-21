@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ekstrakurikuler;
 use App\Models\Role;
 use App\Models\siswa;
+use App\Models\orangtua;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -184,5 +185,40 @@ class EkstrakurikulerController extends Controller
         }
 
         return view('Pages.admin.siswa.pemberitahuan.ekstrakurikuler.ekstrakurikuler', compact(['adminSession', 'specAdmin', 'listMenu', 'dataEkstrakurikuler']));
+    }
+
+    // this for admin orangtua
+    public function index4(Request $request)
+    {
+        //
+        $adminSession = session('admin_name');
+
+       // Guru
+       $roleGet = orangtua::where('username', $adminSession)->first();
+       $roleStatus = Role::find($roleGet->role_id);
+       $specAdmin = $roleStatus->name;
+
+       $roleCheck = new Role;
+       $listMenu = $roleCheck->permissionsId($roleGet->role_id);
+
+        $query = ekstrakurikuler::query();
+        
+        if($request->has('search'))
+        {
+            $query->where('ekstrakurikuler', 'like', "%{$request->search}%");
+        }
+
+        $dataEkstrakurikuler = $query->paginate(10);
+
+        if($request->ajax())
+        {
+            $html = view('Pages.admin.orangtua.pemberitahuan.ekstrakurikuler.partials.table', compact('dataEkstrakurikuler'))->render();
+            return response()->json([
+                'html' => $html
+            ]);
+
+        }
+
+        return view('Pages.admin.orangtua.pemberitahuan.ekstrakurikuler.ekstrakurikuler', compact(['adminSession', 'specAdmin', 'listMenu', 'dataEkstrakurikuler']));
     }
 }

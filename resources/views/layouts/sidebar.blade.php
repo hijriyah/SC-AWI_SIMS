@@ -1007,21 +1007,73 @@
                 <li class="menu-title"><span>{{ $listMenu['Penjadwalan'] }}</span></li>
                 <li>
                         
-                        <li>
-                            <a href="{{ route('orangtua_penjadwalan-jadwalpelajaran_page') }}" class="">
-                                <i class="mdi mdi-calendar-multiple"></i>
-                                <span>{{ $listMenu['Jadwal Pelajaran'] }}</span>
-                            </a>
-                        </li>
+                    <li>
+                        <a href="{{ route('orangtua_penjadwalan-jadwalpelajaran_page') }}" class="">
+                            <i class="mdi mdi-calendar-multiple"></i>
+                            <span>{{ $listMenu['Jadwal Pelajaran'] }}</span>
+                        </a>
+                    </li>
                         
-                        <li>
-                            <a href="{{ route('orangtua_penjadwalan-jadwalpertemuan_page') }}" class="">
-                                <i class="mdi mdi-calendar-multiple-check"></i>
-                                <span>{{ $listMenu['Jadwal Pertemuan'] }}</span>
-                            </a>
-                        </li>
-                    
+                    <li>
+                        <a href="{{ route('orangtua_penjadwalan-jadwalpertemuan_page') }}" class="">
+                            <i class="mdi mdi-calendar-multiple-check"></i>
+                            <span>{{ $listMenu['Jadwal Pertemuan'] }}</span>
+                        </a>
+                    </li>
                 </li>
+                {{-- end penjadwalan --}}
+
+                {{-- start Pemberitahuan --}}
+                <li class="menu-title"><span>{{ $listMenu['Pemberitahuan'] }}</span></li>
+                <li>
+                   <li>
+                       <a href="{{ route('orangtua_pemberitahuan-ekstrakurikuler_page') }}" class="">
+                           <i class="mdi mdi-clipboard-list-outline"></i>
+                           <span>{{ $listMenu['Ekstrakurikuler'] }}</span>
+                       </a>
+                   <li>
+                   <li>
+                       <a href="{{ route('orangtua_pemberitahuan-event_page') }}" class="">
+                            <i class="mdi mdi-flag-outline"></i>
+                            <span>{{ $listMenu['Event'] }}</span>
+                        </a>
+                   </li>
+                   <li>
+                        <a href="{{ route('orangtua_pemberitahuan-liburan_page') }}" class="">
+                            <i class="mdi mdi-ticket-confirmation"></i>
+                            <span>{{ $listMenu['Liburan'] }}</span>
+                        </a>
+                   </li>
+                    {{-- <li>
+                        <a href="javascript: void(0);" class="">
+                            <i class="mdi mdi-email-outline"></i>
+                            <span>{{ $listMenu['Email'] }}</span>
+                        </a>
+                   </li> --}}
+                   <li>
+                        <a href="{{ route('orangtua_pemberitahuan-rencanakegiatan_page') }}" class="">
+                            <i class="mdi mdi-briefcase-check"></i>
+                            <span>{{ $listMenu['Rencana Kegiatan'] }}</span>
+                        </a>
+                   </li>
+                </li>
+               {{-- end Pemberitahuan --}}
+
+               {{-- start pengaturan --}}
+               <li class="menu-title"><span>{{ $listMenu['Pengaturan'] }}</span></li>
+               <li>
+                   <a href="{{ route('orangtua_pengaturan-komplain_page') }}" class="">
+                       <i class="mdi mdi-message-alert"></i>
+                       <span>{{ $listMenu['Komplain']}}</span>
+                   </a>
+               </li>
+               <li style="margin-bottom: 100px;">
+                   <a href="{{ route('orangtua_pengaturan-profile_page') }}" class="">
+                       <i class="mdi mdi-account-box"></i>
+                       <span>{{ $listMenu['Profile'] }}</span>
+                   </a>
+               </li>
+               {{-- end pengaturan --}}
 
                 @endif
                 {{-- end Orangtua Role --}}

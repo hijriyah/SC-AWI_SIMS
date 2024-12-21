@@ -7,6 +7,7 @@ use App\Models\rencanakegiatan;
 use App\Models\Role;
 use App\Models\tahunajaran;
 use App\Models\guru;
+use App\Models\orangtua;
 use App\Models\siswa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -278,5 +279,45 @@ class RencanaKegiatanController extends Controller
         }
 
         return view('Pages.admin.siswa.pemberitahuan.rencanakegiatan.rencanakegiatan', compact(['adminSession', 'specAdmin', 'listMenu', 'dataRencanaKegiatan']));
+    }
+
+    // this for admin orangtua
+    public function index4(Request $request)
+    {
+        //
+        $adminSession = session('admin_name');
+
+        // Guru
+        $roleGet = orangtua::where('username', $adminSession)->first();
+        $roleStatus = Role::find($roleGet->role_id);
+        $specAdmin = $roleStatus->name;
+
+        $roleCheck = new Role;
+        $listMenu = $roleCheck->permissionsId($roleGet->role_id);
+
+        $query = rencanakegiatan::query();
+        
+        if($request->has('search'))
+        {
+            $query->where('nama_kegiatan', 'like', "%{$request->search}%")
+
+            ->orwhereHas('tahunajaran', function($q) use ($request) {
+                $q->where('tahun_ajaran', 'like', "%{$request->search}%");
+            });
+        }
+
+        $dataRencanaKegiatan = $query->with(['tahunajaran'])->paginate(10);
+
+        if($request->ajax())
+        {
+            $html = view('Pages.admin.orangtua.pemberitahuan.rencanakegiatan.partials.table', compact('dataRencanaKegiatan'))->render();
+
+            return response()->json([
+                'html' => $html
+            ]);
+
+        }
+
+        return view('Pages.admin.orangtua.pemberitahuan.rencanakegiatan.rencanakegiatan', compact(['adminSession', 'specAdmin', 'listMenu', 'dataRencanaKegiatan']));
     }
 }

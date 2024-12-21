@@ -138,6 +138,7 @@ class PermissionSeeder extends Seeder
                 'Jadwal Pertemuan',
                 'Pemberitahuan',
                 'Event',
+                'Ekstrakurikuler',
                 'Liburan',
                 'Pesan',
                 'Email',

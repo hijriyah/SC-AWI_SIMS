@@ -8,6 +8,7 @@ use App\Models\liburan;
 use App\Models\Role;
 use App\Models\guru;
 use App\Models\siswa;
+use App\Models\orangtua;
 use App\Models\tahunajaran;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -228,6 +229,7 @@ class LiburanController extends Controller
         return view('Pages.admin.guru.pemberitahuan.liburan.liburan', compact(['adminSession', 'specAdmin', 'listMenu', 'dataLiburan', 'SectionType']));
     }
 
+    // this for admin siswa
     public function index3(Request $request)
     {
         //
@@ -265,5 +267,45 @@ class LiburanController extends Controller
         }
 
         return view('Pages.admin.siswa.pemberitahuan.liburan.liburan', compact(['adminSession', 'specAdmin', 'listMenu', 'dataLiburan']));
+    }
+
+    // this for admin orangtua
+    public function index4(Request $request)
+    {
+        //
+        $adminSession = session('admin_name');
+
+        // Guru
+        $roleGet = orangtua::where('username', $adminSession)->first();
+        $roleStatus = Role::find($roleGet->role_id);
+        $specAdmin = $roleStatus->name;
+
+        $roleCheck = new Role;
+        $listMenu = $roleCheck->permissionsId($roleGet->role_id);
+
+        $query = liburan::query();
+        
+        if($request->has('search'))
+        {
+            $query->where('judul', 'like', "%{$request->search}%")
+
+            ->orwhereHas('tahunajaran', function($q) use ($request) {
+                $q->where('tahun_ajaran', 'like', "%{$request->search}%");
+            });
+        }
+
+        $dataLiburan = $query->with(['tahunajaran'])->paginate(10);
+
+        if($request->ajax())
+        {
+            $html = view('Pages.admin.orangtua.pemberitahuan.liburan.partials.table', compact('dataLiburan'))->render();
+
+            return response()->json([
+                'html' => $html
+            ]);
+
+        }
+
+        return view('Pages.admin.orangtua.pemberitahuan.liburan.liburan', compact(['adminSession', 'specAdmin', 'listMenu', 'dataLiburan']));
     }
 }
