@@ -61,7 +61,7 @@
                 <div class="card-body">
 
                     <div class="d-flex justify-content-start mb-3">
-                        <h4>Personal Information</h4>
+                        <h4>Data Pribadi</h4>
                     </div>
 
                     <div class="d-flex-justify content-start" style="line-height: 0.6;">

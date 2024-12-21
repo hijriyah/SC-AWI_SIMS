@@ -113,7 +113,7 @@
                             <div style="margin-top: 0px;">
                                 <h4 class="card-title" style="width: 200px;"><b>Daftar Data Pelanggaran</b></h4>
                             </div>
-                            <div class="col-md-5" style="margin-left: 180px; margin-right: 10px;">
+                            <div class="col-md-3" style="margin-left: 600px; margin-right: 10px;">
                                 <input class="form-control" placeholder="Search" style="height: 32px;" id="search" name="search" onkeyup="SearchData()" />     
                             </div> 
                             <div style="margin-top: 0px; width: 100px;">

@@ -113,7 +113,7 @@
                             <div style="margin-top: 0px;">
                                 <h4 class="card-title" style="width: 250px;"><b>Daftar Bimbingan Konseling</b></h4>
                             </div>
-                            <div class="col-md-5" style="margin-left: 120px; margin-right: 10px;">
+                            <div class="col-md-3" style="margin-left: 550px; margin-right: 10px;">
                                 <input class="form-control" placeholder="Search" style="height: 32px;" id="search" name="search" onkeyup="SearchData()" />     
                             </div> 
                             <div style="margin-top: 0px; width: 100px;">

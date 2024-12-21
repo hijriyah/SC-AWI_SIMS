@@ -69,7 +69,7 @@
                     <div class="card-body">
                         <div class="display-position" style="margin-bottom: 20px;">
                             <div class="d-flex justify-content-between mb-2">
-                                <div style="margin-top: 10px;">
+                                <div style="margin-top: 0px;">
                                     <h4 class="card-title" style="width: 250px;"><b>Daftar Media Pembelajaran</b></h4>
                                 </div>
                             </div>

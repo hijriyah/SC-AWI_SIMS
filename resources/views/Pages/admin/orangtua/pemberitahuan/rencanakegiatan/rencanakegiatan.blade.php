@@ -110,10 +110,10 @@
                     <div class="display-position" style="margin-bottom: 20px;">
                         <div class="d-flex justify-content-between">
                             <div style="margin-top: 0px;">
-                                <h4 class="card-title" style="width: 180px; margin-top: 10px;"><b>Daftar Rencana Kegiatan</b></h4>
+                                <h4 class="card-title" style="width: 250px; margin-top: 10px;"><b>Daftar Rencana Kegiatan</b></h4>
                             </div>
                             <div class="div"></div>
-                            <div class="col-md-5" style="margin-left: 200px; margin-right: 10px;">
+                            <div class="col-md-3" style="margin-left: 550px; margin-right: 10px;">
                                 <input class="form-control" placeholder="Search" style="height: 32px;" id="search" name="search" onkeyup="SearchData()" />     
                             </div> 
                             {{-- <div style="margin-top: 0px; width: 100px;">
