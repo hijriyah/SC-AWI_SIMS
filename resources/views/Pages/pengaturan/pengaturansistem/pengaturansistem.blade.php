@@ -1,6 +1,5 @@
 @extends('layouts.layout')
 
-
 @section('content')
 
 <div class="row">
@@ -59,17 +58,26 @@
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-12">
-                                <label class="form-label" for="password">Password</label>
-                                <input type="text" name="password" class="form-control" id="username" value="{{ $getUserProfile->password }}" placeholder="Password" />
-                                @error('password')
+                                <label class="form-label" for="email">Email</label>
+                                <input type="text" name="email" class="form-control" id="email" value="{{ $getUserProfile->email }}" placeholder="Email" />
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label class="form-label" for="password">Confirm Password</label>
+                                <input type="text" name="password" class="form-control" id="username" placeholder="Password" />
+                                @error('confirm_password')
                                     <span class="text-danger text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-12">
-                                <label class="form-label" for="email">Email</label>
-                                <input type="text" name="email" class="form-control" id="email" value="{{ $getUserProfile->email }}" placeholder="Email" />
+                                <label class="form-label" for="password">New Password</label>
+                                <input type="text" name="password" class="form-control" id="username" placeholder="Password" />
+                                @error('new_password')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('nilai_raport', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->foreignId('id_siswa')->constrained('siswas')->onDelete('cascade');
             $table->foreignId('id_tahun_ajaran')->constrained('tahun_ajaran')->onDelete('cascade');
             $table->foreignId('id_semester')->constrained('semester')->onDelete('cascade');
             $table->foreignId('id_mata_pelajaran')->constrained('mata_pelajaran')->onDelete('cascade');
-            $table->foreginId('id_mulai_ujian')->constrained('ujian')->onDelete('cascade');
+            $table->foreignId('id_mulai_ujian')->constrained('ujian')->onDelete('cascade');
             $table->integer('kkm');
             $table->float('nilai_akhir'); //jumlah dari nilai uas 60%, tugas 25%, uh 25% 
             $table->foreignId('id_kkm')->constrained('kkm')->onDelete('cascade'); //predikat berdasarkan range nilai

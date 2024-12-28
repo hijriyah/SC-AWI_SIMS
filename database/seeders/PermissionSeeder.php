@@ -74,6 +74,8 @@ class PermissionSeeder extends Seeder
                 ...$menuUjian,
                 ...$menuKesiswaanBK,
                 ...$menuPenilaian,
+                'Raport',
+                'Catatan Wali Kelas',
                 'Jurnal',
                 'Jurnal Kelas',
                 'Buku & Media',
@@ -89,6 +91,8 @@ class PermissionSeeder extends Seeder
                 'Pesan',
                 'Email',
                 'Rencana Kegiatan',
+                'Pengaturan',
+                'Profile'
             ],
 
             'Siswa' => [

@@ -193,13 +193,13 @@
                      <a class="dropdown-item" href="{{ route('pengaturan_pengaturansistem_page') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i>
                         Profil</a>
                      @elseif($specAdmin == "Guru")
-                        <a class="dropdown-item" href="{{ route('siswa_pengaturan_profile_page') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i>
+                        <a class="dropdown-item" href="{{ route('guru_pengaturan-profile_page') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i>
                            Profil</a>
                      @elseif($specAdmin == "Siswa")
-                     <a class="dropdown-item" href="{{ route('siswa_pengaturan_profile_page') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i>
+                     <a class="dropdown-item" href="{{ route('siswa_pengaturan-profile_page') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i>
                            Profil</a>
                      @elseif($specAdmin == "Orang tua")
-                        <a class="dropdown-item" href="{{ route('siswa_pengaturan_profile_page') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i>
+                        <a class="dropdown-item" href="{{ route('orangtua_pengaturan-profile_page') }}"><i class="bx bx-user font-size-16 align-middle me-1"></i>
                         Profil</a>
                      @endif
                   </li>

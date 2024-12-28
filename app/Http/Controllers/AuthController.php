@@ -45,7 +45,7 @@ class AuthController extends Controller
             // orang tua authentication
             $orangtua = new orangtua;
 
-            if($users->attemptWithoutHash($credentials))
+            if($users->attemptWithHash($credentials))
             {
                 return redirect()->route('admin_dashboard')->with('success', 'berhasil login');
             }
@@ -64,37 +64,6 @@ class AuthController extends Controller
             else {
                 return redirect()->back()->with('error', 'email/password salah');
             }
-
-            // staff Authentication
-            // $staff = new staff;
-            // if($staff->attemptWithoutHash($credentials))
-            // {
-            //     return redirect()->route('admin_dashboard');
-            // }
-            // else {
-            //     return redirect()->route('login');
-            // }
-
-
-            // // siswa authentication
-            // $siswa = new siswa;
-            // if($siswa->attemptWithoutHash($credentials))
-            // {
-            //     return redirect()->route('Siswa_Dashboard')->with('login berhasil');
-            // }
-            // else {
-            //     return redirect()->route('login');
-            // }
-
-            // // orangtua authentication
-            // $orangtua = new orangtua;
-            // if($orangtua->attemptWithoutHash($credentials))
-            // {
-            //     return redirect()->route('Orangtua_Dashboard')->with('login berhasil');
-            // }
-            //   else {
-            //     return redirect()->route('login');
-            // }
 
         }
         else {

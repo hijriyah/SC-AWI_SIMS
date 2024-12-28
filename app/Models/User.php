@@ -25,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'DefaultHash'
     ];
 
     /**
@@ -47,11 +48,11 @@ class User extends Authenticatable
     ];
 
 
-    public function attemptWithoutHash($credentials)
+    public function attemptWithHash($credentials)
     {
         $user = $this->where('username', $credentials['username'])->first();
 
-        if ($user && $user->password === $credentials['password']) {
+        if (password_verify($credentials['password'], $user->password)) {
             Auth::login($user);
 
             $role_name = Role::where('name', $user->username)->first();

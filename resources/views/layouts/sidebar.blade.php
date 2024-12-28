@@ -653,6 +653,20 @@
                         </li>
                     
                     {{-- end Jurnal Menu --}}
+
+                     {{-- start Raport Menu --}}
+                    @if($SectionType->section->section == "Wali Kelas" || $SectionType->section->section == "wali kelas")
+                     <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="mdi mdi-book-open"></i>
+                            <span>{{ $listMenu['Raport'] }}</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="true">
+                            <li><a href="{{ route('guru_raport-catatanwalikelas_page')}}" class="">{{ $listMenu['Catatan Wali Kelas'] }}</a></li>
+                        </ul>
+                    </li>
+                    @endif
+                    {{-- end Raport Menu --}}
                     {{-- end Dashboard Menu --}}
 
                     @if($SectionType->section->section == "Kesiswaan" || $SectionType->section->section == "kesiswaan")
@@ -829,16 +843,17 @@
                     {{-- end Pemberitahuan --}}
 
                     {{-- start Pengaturan --}}
-                    {{-- <li class="menu-title"><span>{{ $listMenu['Pengaturan'] }}</span></li>
+                    <li class="menu-title"><span>{{ $listMenu['Pengaturan'] }}</span></li>
                         <li>
                             <li>
-                                <a href="javascript: void(0);" class="">
-                                    <i class="mdi mdi-message-alert"></i>
-                                    <span>{{ $listMenu['Komplain']}}</span>
+                                <a href="{{ route('guru_pengaturan-profile_page') }}" class="">
+                                    <i class="mdi mdi-account-box"></i>
+                                    <span>{{ $listMenu['Profile'] }}</span>
                                 </a>
                             </li>
                         </li>
-                    </li> --}}
+                    </li>
+                    {{-- end pengaturan --}}
                 @endif
                 {{-- end Guru Role --}}
 
@@ -952,7 +967,7 @@
                     </a>
                 </li>
                 <li style="margin-bottom: 100px;">
-                    <a href="{{ route('siswa_pengaturan_profile_page') }}" class="">
+                    <a href="{{ route('siswa_pengaturan-profile_page') }}" class="">
                         <i class="mdi mdi-account-box"></i>
                         <span>{{ $listMenu['Profile'] }}</span>
                     </a>

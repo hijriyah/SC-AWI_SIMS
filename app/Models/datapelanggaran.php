@@ -13,6 +13,8 @@ use App\Models\sanksipelanggaran;
 
 class datapelanggaran extends Model
 {
+    use Uuid;
+    
     protected $table = 'data_pelanggaran';
 
     protected $fillable = [

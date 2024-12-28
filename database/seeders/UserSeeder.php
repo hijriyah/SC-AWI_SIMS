@@ -21,15 +21,10 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'username' => 'Administrator',
             'email' => 'admin123@gmail.com',
-            'password' => '12345678'
+            'password' => bcrypt('12345678'),
+            'DefaultHash' => hash('sha256', '12345678')
         ]);
 
         $admin->assignRole($role->name);
-
-
-
-
-
-
     }
 }

@@ -39,11 +39,6 @@
                         <div class="col-md-6">
                             <p class="">{{ $amountGuru }}</p>
                         </div>
-                        {{-- <div class="col-5 align-self-center">
-                            <div class="progress progress-sm">
-                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -65,11 +60,6 @@
                         <div class="col-md-6">
                             <p class="">{{ $amountSiswa }}</p>
                         </div>
-                        {{-- <div class="col-5 align-self-center">
-                            <div class="progress progress-sm">
-                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -114,11 +104,6 @@
                         <div class="col-md-6">
                             <p class="">{{ $amountMataPelajaran }}</p>
                         </div>
-                        {{-- <div class="col-5 align-self-center">
-                            <div class="progress progress-sm">
-                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -140,11 +125,6 @@
                         <div class="col-md-6">
                             <p class="">{{ $amountKelas }}</p>
                         </div>
-                        {{-- <div class="col-5 align-self-center">
-                            <div class="progress progress-sm">
-                                 <div class="progress-bar bg-primary" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>

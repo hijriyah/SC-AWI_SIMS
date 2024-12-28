@@ -890,6 +890,16 @@ Route::prefix('guru')->middleware('auth:guru')->group(function() {
          Route::get('/jurnalkelas/generatePDF/{id}', [JurnalKelasController::class, 'DownloadReport2'])->name('guru_jurnal-jurnalkelas_download');
       });
 
+      Route::prefix('raport')->group(function () {
+         // raport - catatan walikelas
+         Route::get('/catatanwalikelas', [CatatanWaliKelasController::class, 'index2'])->name('guru_raport-catatanwalikelas_page');
+         Route::get('/catatanwalikelas/add', [CatatanWaliKelasController::class, 'storePage2'])->name('guru_raport-catatanwalikelas_add');
+         Route::post('/catatanwalikelas/store', [CatatanWaliKelasController::class, 'store2'])->name('guru_raport-catatanwalikelas_store');
+         Route::get('/catatanwalikelas/edit/{uuid}', [CatatanWaliKelasController::class, 'edit2'])->name('guru_raport-catatanwalikelas_edit');
+         Route::put('/catatanwalikelas/update/{uuid}', [CatatanWaliKelasController::class, 'update2'])->name('guru_raport-catatanwalikelas_update');
+         Route::delete('catatanwalikelas/delete/{uuid}', [CatatanWaliKelasController::class, 'destroy2'])->name('guru_raport-catatanwalikelas_delete');
+      });
+
       Route::prefix('kesiswaan')->group(function () {
 
          // kesiswaan - tata tertib
@@ -1013,6 +1023,10 @@ Route::prefix('guru')->middleware('auth:guru')->group(function() {
          Route::get('/rencanakegiatan', [RencanaKegiatanController::class, 'index2'])->name('guru_pemberitahuan_rencanakegiatan_page');
       });
 
+      Route::prefix('pengaturan')->group(function () {
+         // pengaturan profile 
+         Route::get('/profile', [ProfileController::class, 'GuruProfile'])->name('guru_pengaturan-profile_page');
+      });
   
 
 });
@@ -1076,7 +1090,7 @@ Route::prefix('siswa')->middleware('auth:siswa')->group(function () {
          Route::delete('/komplain/delete/{uuid}', [KomplainController::class, 'destroy3'])->name('siswa_pengaturan_komplain_delete');
 
          // pengaturan profile 
-         Route::get('/profile', [ProfileController::class, 'SiswaProfile'])->name('siswa_pengaturan_profile_page');
+         Route::get('/profile', [ProfileController::class, 'SiswaProfile'])->name('siswa_pengaturan-profile_page');
       });
 
    });

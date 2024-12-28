@@ -9,6 +9,10 @@ use App\Models\guru;
 use App\Models\siswa;
 use App\Models\orangtua;
 use App\Models\JadwalPelajaran;
+use App\Models\databimbingankonseling;
+use App\Models\rencanakegiatan;
+use App\Models\datapelanggaran;
+use App\Models\tugassiswa;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
@@ -38,7 +42,17 @@ class PageController extends Controller
         //     'PhotoProfile' => $PhotoProfile
         // ]);
 
-        return view('Pages.admin.dashboard', compact(['adminSession', 'specAdmin', 'listMenu', 'amountGuru', 'amountSiswa', 'amountMataPelajaran', 'amountKelas', 'amountJadwalPelajaran', 'amountRencanaKegiatan']));
+        return view('Pages.admin.dashboard', compact([
+            'adminSession', 
+            'specAdmin', 
+            'listMenu', 
+            'amountGuru', 
+            'amountSiswa', 
+            'amountMataPelajaran', 
+            'amountKelas', 
+            'amountJadwalPelajaran',
+            'amountRencanaKegiatan'
+        ]));
     }
 
     public function GuruDashboard()
@@ -53,6 +67,16 @@ class PageController extends Controller
         // section type
         $SectionType = guru::with('section')->where('username', $adminSession)->first();
 
+        // amounts
+        
+        $amountGuru = DB::table('gurus')->count();
+        $amountSiswa = DB::table('siswas')->count();
+        $amountKelas = DB::table('kelas')->count();
+        $amountMataPelajaran = DB::table('mata_pelajaran')->count();
+        $amountDataBimbinganKonseling = databimbingankonseling::query()->with(['tahunajaran', 'kelas', 'siswa', 'bimbingankonseling'])->paginate(10);
+        $amountRencanaKegiatan = rencanakegiatan::query()->paginate(10);
+        $amountDataPelanggaran = datapelanggaran::query()->with(['tahunajaran', 'kelas', 'siswa', 'pelanggaran', 'sanksipelanggaran'])->paginate(10);
+
         $roleCheck = new Role;
         $listMenu = $roleCheck->permissionsId($roleGet->role_id);
         $GuruPhotoProfile = $roleGet->photo;
@@ -61,7 +85,20 @@ class PageController extends Controller
             'GuruPhotoProfile' => $GuruPhotoProfile
         ]);
 
-        return view('Pages.admin.guru.dashboard', compact(['adminSession', 'listMenu', 'roleStatus', 'specAdmin', 'SectionType']));
+        return view('Pages.admin.guru.dashboard', compact([
+            'adminSession', 
+            'listMenu', 
+            'roleStatus', 
+            'specAdmin', 
+            'SectionType',
+            'amountGuru',
+            'amountSiswa',
+            'amountMataPelajaran',
+            'amountKelas',
+            'amountDataBimbinganKonseling',
+            'amountRencanaKegiatan',
+            'amountDataPelanggaran'
+        ]));
 
     }
 
@@ -77,12 +114,32 @@ class PageController extends Controller
         $roleCheck = new Role;
         $listMenu = $roleCheck->permissionsId($roleGet->role_id);
         $PhotoProfile = $roleStatus->photo;
- 
+
+        $amountGuru = DB::table('gurus')->count();
+        $amountSiswa = DB::table('siswas')->count();
+        $amountKelas = DB::table('kelas')->count();
+        $amountMataPelajaran = DB::table('mata_pelajaran')->count();
+        $amountRencanaKegiatan = rencanakegiatan::query()->paginate(10);
+        $amountDataPelanggaran = datapelanggaran::where('uuid', $roleGet->uuid)->with(['tahunajaran', 'kelas', 'siswa', 'pelanggaran', 'sanksipelanggaran'])->paginate(10);
+        $amountTugasSiswa = tugassiswa::where('id_siswa', $roleGet->id)->with(['siswa', 'kelas', 'tahunajaran', 'section', 'matapelajaran'])->paginate(10);
+
         session([
             'SiswaPhotoProfile' => $PhotoProfile
         ]);
 
-        return view('Pages.admin.siswa.dashboard', compact(['adminSession', 'listMenu', 'roleStatus', 'specAdmin']));
+        return view('Pages.admin.siswa.dashboard', compact([
+            'adminSession', 
+            'listMenu', 
+            'roleStatus', 
+            'specAdmin',
+            'amountGuru',
+            'amountSiswa',
+            'amountKelas',
+            'amountMataPelajaran',
+            'amountRencanaKegiatan',
+            'amountDataPelanggaran',
+            'amountTugasSiswa'
+        ]));
 
     }
 
@@ -98,11 +155,36 @@ class PageController extends Controller
         $roleCheck = new Role;
         $listMenu = $roleCheck->permissionsId($roleGet->role_id);
         $PhotoProfile = $roleStatus->photo;
- 
+
+        $getStudent = siswa::where('id_orangtua', $roleGet->id)->first();
+
+        $amountGuru = DB::table('gurus')->count();
+        $amountSiswa = DB::table('siswas')->count();
+        $amountKelas = DB::table('kelas')->count();
+        $amountMataPelajaran = DB::table('mata_pelajaran')->count();
+        $amountRencanaKegiatan = rencanakegiatan::query()->paginate(10);
+        $amountDataPelanggaran = datapelanggaran::where('uuid', $getStudent->id)->with(['tahunajaran', 'kelas', 'siswa', 'pelanggaran', 'sanksipelanggaran'])->paginate(10);
+        $amountTugasSiswa = tugassiswa::where('id_siswa', $getStudent->id)->with(['siswa', 'kelas', 'tahunajaran', 'section', 'matapelajaran'])->paginate(10);
+        $amountDataBimbinganKonseling = databimbingankonseling::query()->with(['tahunajaran', 'kelas', 'siswa', 'bimbingankonseling'])->paginate(10);
+        
+
         session([
             'OrangtuaPhotoProfile' => $PhotoProfile
         ]);
 
-        return view('Pages.admin.orangtua.dashboard', compact(['adminSession', 'listMenu', 'roleStatus', 'specAdmin']));
+        return view('Pages.admin.orangtua.dashboard', compact([
+            'adminSession', 
+            'listMenu', 
+            'roleStatus', 
+            'specAdmin',
+            'amountGuru',
+            'amountSiswa',
+            'amountKelas',
+            'amountMataPelajaran',
+            'amountRencanaKegiatan',
+            'amountDataPelanggaran',
+            'amountTugasSiswa',
+            'amountDataBimbinganKonseling'
+        ]));
     }
 }

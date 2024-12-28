@@ -31,19 +31,29 @@ class UserSettingController extends Controller
 
         $validation = $request->validate([
             'username' => 'required',
-            'password' => 'required'
+            'confirm_password' => 'required',
+            'new_password' => 'required'
         ], [
             'username.required' => 'username tidak boleh kosong',
-            'password.required' => 'password tidak boleh kosong'
+            'confirm_password.required' => 'confirm password tidak boleh kosong',
+            'new_password.required' => 'new password tidak boleh kosong'
         ]);
 
-        $getUserData->update([
-            'username' => $request->username,
-            'password' => $request->password,
-            'email' => $request->email
-        ]);
+        if(password_verify($request->confirm_password, $getUserData->password))
+        {      
+            $getUserData->update([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->new_password),
+                'DefaultHash' => hash('sha256', $request->new_password)
+            ]);
+    
+            return redirect()->route('pengaturan_pengaturansistem_page')->with('success', 'password berhasil diubah');
+        }
+        else {
+            return redirect()->route('pengaturan_pengaturansistem_page')->with('error', 'password gagal diubah');
+        }
 
-        return redirect()->route('pengaturan_pengaturansistem_page')->with('success', 'data berhasil disimpan');
 
     }
 }
