@@ -26,6 +26,7 @@ return new class extends Migration
             //$table->foreignId('id_jabatan_guru')->constrained('jabatan_guru')->onDelete('cascade');
             $table->string('username');
             $table->string('password');
+            $table->longtext('DefaultHash');
             $table->enum('aktif', ['ya', 'tidak']);
             $table->string('warna')->nullable();
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');

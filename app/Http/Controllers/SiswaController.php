@@ -95,32 +95,29 @@ class SiswaController extends Controller
         //
         // dd($request->all());
 
-        // $validation = $request->validate([
-            
-        //     'nama_lengkap' => 'required',
-        //     'nama_panggilan' => 'required',
-        //     'tempat_lahir' => 'required',
-        //     'tanggal_lahir' => 'required',
-        //     'jenis_kelamin' => 'required',
-        //     'agama' => 'required',
-        //     'email' => 'required',
-        //     'no_telp' => 'required',
-        //     'alamat' => 'required',
-        //     'id_kelas' => 'required',
-        //     'id_section' => 'required',
-        //     'golongan_darah' => 'required',
-        //     'kebangsaan' => 'required',
-        //     'negara' => 'required',
-        //     'nomor_register' => 'required',
-        //     'tanggal_masuk' => 'required',
-        //     'id_orangtua' => 'required',
-        //     'photo' => 'required',
-        //     'id_tahun_ajaran' => 'required',
-        //     'username' => 'required',
-        //     'password' => 'required',
-        //     'aktif' => 'required'
-
-        // ]);
+        $validation = $request->validate([
+            'nama_lengkap' => 'required',
+            'nama_panggilan' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'email' => 'required',
+            'no_telp' => 'required',
+            'alamat' => 'required',
+            'id_kelas' => 'required',
+            'id_section' => 'required',
+            'golongan_darah' => 'required',
+            'kebangsaan' => 'required',
+            'negara' => 'required',
+            'nomor_register' => 'required',
+            'tanggal_masuk' => 'required',
+            'id_orangtua' => 'required',
+            'id_tahun_ajaran' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'aktif' => 'required'
+        ]);
 
         $filePath = null;
         if(isset($request->file))
@@ -129,12 +126,9 @@ class SiswaController extends Controller
             $filePath = $file->store('AdminMasterSiswa', 'public');
         }
 
-
-
         $roleSiswa = Role::where('name', 'Siswa')->first();
 
         $data = siswa::create([
-            
             'nama_lengkap' => $request->nama_lengkap,
             'nama_panggilan' => $request->nama_panggilan,
             'tempat_lahir' => $request->tempat_lahir,
@@ -155,10 +149,10 @@ class SiswaController extends Controller
             'photo' => $filePath,
             'id_tahun_ajaran' => $request->id_tahun_ajaran,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
+            'DefaultHash' => hash('sha256', $request->password),
             'aktif' => $request->aktif,
             'role_id' => $roleSiswa->id
-            
         ]);
         $data->save();
 
@@ -205,7 +199,99 @@ class SiswaController extends Controller
     {
         //
         $data = siswa::findbyUuid($uuid);
-        $data->update($request->all());
+
+        $DefaultPassword = null;
+        $DefaultHash = null;
+
+        if(password_verify($request->confirm_password, $data->password))
+        {
+            $DefaultPassword = bcrypt($request->new_password);
+            $DefaultHash = hash('sha256', $request->new_password);
+        }
+        else {
+            $DefaultPassword = $data->password;
+            $DefaultHash = $data->DefaultHash;
+        }
+
+        $filePath = null;
+        if(isset($request->file))
+        {
+            $file = $request->file('file'); 
+            $filePath = $file->store('AdminMasterSiswa', 'public');
+        }
+
+        $roleSiswa = Role::where('name', 'Siswa')->first();
+
+        $validation = $request->validate([
+            'nama_lengkap' => 'required',
+            'nama_panggilan' => 'required',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'email' => 'required',
+            'no_telp' => 'required',
+            'alamat' => 'required',
+            'id_kelas' => 'required',
+            'id_section' => 'required',
+            'golongan_darah' => 'required',
+            'kebangsaan' => 'required',
+            'negara' => 'required',
+            'nomor_register' => 'required',
+            'tanggal_masuk' => 'required',
+            'id_orangtua' => 'required',
+            'id_tahun_ajaran' => 'required',
+            'username' => 'required',
+            'aktif' => 'required'
+        ], [
+            'nama_lengkap.required' => 'Nama Lengkap tidaak boleh kosong',
+            'nama_panggilan.required' => 'Nama Panggilan tidak boleh kosong',
+            'tempat_lahir.required' => 'Tempat Lahir tidak boleh kosong',
+            'tanggal_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
+            'agama.required' => 'Agama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'no_telp.required' => 'No Telp tidak boleh kosong',
+            'alamat..required' => 'Alamat tidak boleh kosong',
+            'id_kelas.required' => 'Kelas tidak boleh kosong',
+            'id_section.required' => 'Section tidak boleh kosong',
+            'golongan_darah' => 'Golongan Darah tidak boleh kosong',
+            'kebangsaan.required' => 'Kebangsaan tidak boleh kosong',
+            'nagara.required' => 'Negara tidak boleh kosong',
+            'nomor_register.required' => 'Nomor Register Tidak boleh kosong',
+            'tanggal_masuk.required' => 'Tanggal Masuk tidak boleh kosong',
+            'id_orangtua.required' => 'Orang Tua tidak boleh kosong',
+            'id_tahun_ajaran.required' => 'Tahun Ajaran tidak boleh kosong',
+            'username.required' => 'Username tidak boleh kosong',
+            'aktif.required' => 'Aktif tidak boleh kosong'
+        ]);
+
+        $data->update([
+            'nama_lengkap' => $request->nama_lengkap,
+            'nama_panggilan' => $request->nama_panggilan,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'agama' => $request->agama,
+            'email' => $request->email,
+            'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+            'id_kelas' => $request->id_kelas,
+            'id_section' => $request->id_section,
+            'golongan_darah' => $request->golongan_darah,
+            'kebangsaan' => $request->kebangsaan,
+            'negara' => $request->negara,
+            'nomor_register' => $request->nomor_register,
+            'tanggal_masuk' => $request->tanggal_masuk,
+            'id_orangtua' => $request->id_orangtua,
+            'photo' => $filePath,
+            'id_tahun_ajaran' => $request->id_tahun_ajaran,
+            'username' => $request->username,
+            'password' => $DefaultPassword,
+            'DefaultHash' => $DefaultHash,
+            'aktif' => $request->aktif,
+            'role_id' => $roleSiswa->id
+        ]);
 
         return redirect()->route('siswa_master_page')->with('success', 'data siswa berhasil diupdate');
     }

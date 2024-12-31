@@ -28,6 +28,7 @@ class orangtua extends Authenticatable
         'aktif',
         'username',
         'password',
+        'DefaultHash',
         'role_id'
     ];
 
@@ -35,7 +36,7 @@ class orangtua extends Authenticatable
     {
         $user = $this->where('username', $credentials['username'])->first();
 
-        if ($user && $user->password === $credentials['password']) {
+        if (password_verify($credentials['password'], $user->password)) {
             session([
                 'admin_name' => $user->username
             ]);

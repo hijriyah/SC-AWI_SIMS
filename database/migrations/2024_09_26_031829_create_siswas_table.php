@@ -35,6 +35,7 @@ return new class extends Migration
             $table->foreignId('id_tahun_ajaran')->constrained('tahun_ajaran')->onDelete('cascade');
             $table->string('username');
             $table->string('password');
+            $table->longtext('DefaultHash');
             $table->enum('aktif', ['ya', 'tidak']);
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamps();

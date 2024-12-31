@@ -95,8 +95,6 @@ class OrangtuaController extends Controller
             $filePath = $file->store('AdminMasterOrangtua', 'public');
         }
 
-
-
         $roleOrangtua= Role::where('name', 'Orang tua')->first();
 
         $data = orangtua::create([
@@ -111,10 +109,9 @@ class OrangtuaController extends Controller
             'photo' => $filePath,
             'aktif' => $request->aktif,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
+            'DefaultHash' => hash('sha256', $request->password),
             'role_id' => $roleOrangtua->id
-            
-            
         ]);
         $data->save();
 
@@ -155,7 +152,22 @@ class OrangtuaController extends Controller
     {
         //
         $data = orangtua::findbyUuid($uuid);
-        $data->update($request->all());
+        
+        $data->update([
+            'nama_ayah' => $request->nama_ayah,
+            'nama_ibu' => $request->nama_ibu,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'email' => $request->email,
+            'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+            'photo' => $filePath,
+            'aktif' => $request->aktif,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'DefaultHash' => hash('sha256', $request->password),
+            'role_id' => $roleOrangtua->id
+        ]);
 
         return redirect()->route('orangtua_master_page')->with('success', 'data orangtua berhasil dihapus');
     }

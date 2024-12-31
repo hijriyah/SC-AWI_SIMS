@@ -167,7 +167,7 @@
                               <select class="form-select" placeholder="Pilih" name="id_tahun_ajaran">
                                   <option selected disabled>Pilih</option>
                                   @foreach($dataTahunAjaran as $tahunajaran)
-                                  <option value="{{ $lokasibarang->id }}" {{ old('id_tahun_ajaran', $tahunajaran->id ) == $dataEdit->id_tahun_ajaran ? 'selected' : ''}}>{{ $tahunajaran->tahun_ajaran }}</option>
+                                  <option value="{{ $tahunajaran->id }}" {{ old('id_tahun_ajaran', $tahunajaran->id ) == $dataEdit->id_tahun_ajaran ? 'selected' : ''}}>{{ $tahunajaran->tahun_ajaran }}</option>
                                   @endforeach
                               </select>
                          </div>
@@ -208,37 +208,38 @@
                                     <option value="wni" {{ old('kebangsaan', $dataEdit->kebangsaan) == 'wna' ? 'selected' : ''}} >WNA</option>
                                 </select>
                             </div>
-
-                       </div>
-                       <div class="col-lg-6">
-                            <div class="mb-4">
-                                <label class="form-label">Negara</label>
-                                <input class="form-control" name="negara" value="{{ $dataEdit->negara}}" />
-                                <!-- input-group -->
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-4">
-                                <label class="form-label">Nomor Register</label>
-                                <input class="form-control" name="nomor_register" value="{{ $dataEdit->negara}}" />
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-4">
-                                <label class="form-label">Tanggal Masuk</label>
-                                <div class="input-group" id="datepicker3">
-                                    {{-- <input type="text" class="form-control" placeholder="yyyy/mm/dd"
-                                        data-date-container='#datepicker3' data-provide="datepicker"
-                                        data-date-format="yyyy-mm-dd"
-                                        data-date-multidate="true" name="tanggal_masuk"> --}}
-                                    <input type="date" class="form-control" placeholder="yyyy-mm-dd" name="tanggal_masuk" value="{{ $dataEdit->tanggal_masuk }}" />
-                                    {{-- <span class="input-group-text"><i
-                                            class="mdi mdi-calendar"></i></span> --}}
-                                </div>
-                                <!-- input-group -->
-                            </div>
                         </div>
                     </div>
+                       <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label class="form-label">Negara</label>
+                                    <input class="form-control" name="negara" value="{{ $dataEdit->negara}}" />
+                                    <!-- input-group -->
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label class="form-label">Nomor Register</label>
+                                    <input class="form-control" name="nomor_register" value="{{ $dataEdit->negara}}" />
+                                </div>
+                            </div>
+                       </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label class="form-label">Tanggal Masuk</label>
+                                    <div class="input-group" id="datepicker3">
+                                        <input type="date" class="form-control" placeholder="yyyy-mm-dd" name="tanggal_masuk" value="{{ $dataEdit->tanggal_masuk }}" />
+                                    </div>
+                                    <!-- input-group -->
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <label class="form-label">Confirm  Password</label>
+                                <input type="password" class="form-control" placeholder="password" name="confirm_password"/>
+                            </div>
+                        </div>
 
                     <div class="row">
                         <div class="col-lg-6 mb-4">
@@ -246,18 +247,9 @@
                             <input type="username" class="form-control" name="username" placeholder="username" name="username" value="{{ $dataEdit->username }}" />
                         </div>
                         <div class="col-lg-6 mb-4">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="password" name="password" value="{{ $dataEdit->password }}" />
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control" placeholder="password" name="new_password"/>
                         </div>
-                        {{-- <div class="col-lg-6 mb-4">
-                            <label class="form-label">Role</label>
-                            <select class="form-select" name="role"> 
-                                <option selected>Pilih</option> 
-                                @foreach ($dataRole as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                     </div>
                     
                     <div class="d-flex justify-content-end">

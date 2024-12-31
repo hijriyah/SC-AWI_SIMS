@@ -30,6 +30,7 @@ class guru extends Authenticatable
         //'id_jabatan_guru',
         'username',
         'password',
+        'DefaultHash',
         'aktif',
         'warna',
         'role_id'
@@ -39,7 +40,7 @@ class guru extends Authenticatable
     {
         $user = $this->where('username', $credentials['username'])->first();
 
-        if ($user && $user->password === $credentials['password']) {
+        if (password_verify($credentials['password'], $user->password)) {
             session([
                 'admin_name' => $user->username,
             ]);

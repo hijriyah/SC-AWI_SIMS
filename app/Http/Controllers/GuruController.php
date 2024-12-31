@@ -109,8 +109,6 @@ class GuruController extends Controller
             $filePath = $file->store('AdminMasterGuru', 'public');
         }
 
-
-
         $roleGuru = Role::where('name', 'Guru')->first();
 
         $data = guru::create([
@@ -124,7 +122,8 @@ class GuruController extends Controller
             'alamat' => $request->alamat,
             'photo' => $filePath,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
+            'DefaultHash' => hash('sha256', $request->password),
             'aktif' => $request->aktif,
             'warna' => $request->warna,
             'role_id' => $roleGuru->id
@@ -175,6 +174,7 @@ class GuruController extends Controller
         // dd($request->all());
 
         $data = guru::findbyUuid($uuid);
+
         $validation = $request->validate([
             'nama_lengkap' => 'required',
             'nama_panggilan' => 'required',
@@ -185,7 +185,6 @@ class GuruController extends Controller
             'no_telp' => 'required',
             'alamat' => 'required',
             'username' => 'required',
-            'password' => 'required',
             'aktif' => 'required',
             // 'warna' => 'required'
         ], [
@@ -198,7 +197,6 @@ class GuruController extends Controller
             'no_telp.required' => 'no telp tidak boleh kosong',
             'alamat.required' => 'alamat tidak boleh kosong',
             'username.required' => 'username tidak boleh kosong',
-            'password.required' => 'password tidak boleh kosong',
             'aktif.required' => 'aktif tidak boleh kosong',
             // 'warna.required' => 'warna tidak boleh kosong'
         ]);
@@ -210,8 +208,20 @@ class GuruController extends Controller
             $filePath = $file->store('AdminMasterGuru', 'public');
         }
 
-
         $roleGuru = Role::where('name', 'Guru')->first();
+
+        $DefaultPassword = null;
+        $DefaultHash = null;
+
+        if(password_verify($request->confirm_password, $data->password))
+        {
+            $DefaultPassword = bcrypt($request->new_password);
+            $DefaultHash = hash('sha256', $request->new_password);
+        }
+        else {
+            $DefaultPassword = $data->password;
+            $DefaultHash = $data->DefaultHash;
+        }
 
         $data->update([
             'nama_lengkap' => $request->nama_lengkap,
@@ -224,7 +234,8 @@ class GuruController extends Controller
             'alamat' => $request->alamat,
             'photo' => $filePath,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => $DefaultPassword,
+            'DefaultHash' => $DefaultHash,
             'aktif' => $request->aktif,
             'warna' => $request->warna,
             'role_id' => $roleGuru->id

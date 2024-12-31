@@ -146,6 +146,9 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Foto</label>
                             <div class="input-group">
@@ -153,22 +156,26 @@
                                 <span class="input-group-text"><i class="mdi mdi-panorama"></i></span>
                             </div>
                         </div>
+                        <div class="col-lg-6 mb-4">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirm__password" placeholder="Confirm password" />
+                            @error('password')
+                                <span class="text-sm text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                     
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Username</label>
-                            <input type="username" class="form-control" name="username" placeholder="username" name="username" value="{{ $dataEdit->username }}" />
+                            <input type="username" class="form-control" name="username" placeholder="username" value="{{ $dataEdit->username }}" />
                             @error('username')
                                 <span class="text-sm text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-lg-6 mb-4">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="password" name="password" value="{{ $dataEdit->password }}" />
-                            @error('password')
-                                <span class="text-sm text-danger">{{ $message }}</span>
-                            @enderror
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="new_password" placeholder="New password" />
                         </div>
                     </div>
 

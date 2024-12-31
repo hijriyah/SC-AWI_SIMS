@@ -40,6 +40,7 @@ class siswa extends Authenticatable
         'id_tahun_ajaran',
         'username',
         'password',
+        'DefaultHash',
         'aktif',
         'role_id'
     ];
@@ -48,7 +49,7 @@ class siswa extends Authenticatable
     {
         $user = $this->where('username', $credentials['username'])->first();
 
-        if ($user && $user->password === $credentials['password']) {
+        if (password_verify($credentials['password'], $user->password)) {
 
             session([
                 'admin_name' => $user->username,

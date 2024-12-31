@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('aktif', ['ya', 'tidak']);
             $table->string('username');
             $table->string('password');
+            $table->longtext('DefaultHash');
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->timestamps();
         });
