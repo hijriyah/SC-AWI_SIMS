@@ -71,11 +71,11 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
         $validation = $request->validate([
-            'nama' => 'required',
+            'nama_lengkap' => 'required',
             'nama_panggilan' => 'required',
-            'tanggal' => 'required',
+            'tanggal_bergabung' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'no_telp' => 'required',
@@ -84,30 +84,40 @@ class StaffController extends Controller
             'aktif' => 'required',
             'alamat' => 'required',
             'deskripsi' => 'required'
+        ], [
+            'nama_langkap.required' => 'Nama Lengkap tidak boleh kosong',
+            'nama_panggilan.required' => 'Nama Panggilan tidak boleh kosong',
+            'tanggal_bergabung.required' => 'Tanggal tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
+            'agama.required' => 'Agama tidak boleh kosong','no_telp' => 'required',
+            'username.required' => 'Username tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+            'aktif.required' => 'Status tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong'
         ]);
 
         $filePath = null;
         if(isset($request->file))
         {
             $file = $request->file('file'); 
-            $filePath = $file->store('AdminMasterGuru', 'public');
+            $filePath = $file->store('AdminMasterStaff', 'public');
         }
-
-
 
         $roleGuru = Role::where('name', 'Staff')->first();
 
         $data = staff::create([
-            'nama' => $request->nama,
+            'nama_lengkap' => $request->nama_lengkap,
             'nama_panggilan' => $request->nama_panggilan,
-            'tanggal' => $request->tanggal,
+            'tanggal_bergabung' => $request->tanggal_bergabung,
             'jenis_kelamin' => $request->jenis_kelamin,
             'agama' => $request->agama,
             'aktif' => $request->aktif,
             'photo' => $filePath,
             'no_telp' => $request->no_telp,
             'username' => $request->username,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
+            'DefaultHash' => hash('256', $request->password),
             'role_id' => $roleGuru->id,
             'alamat' => $request->alamat,
             'deskripsi' => $request->deskripsi
@@ -151,7 +161,69 @@ class StaffController extends Controller
     {
         //
         $data = staff::findbyUuid($uuid);
-        $data->update($request->all());
+
+        $DefaultPassword = null;
+        $DefaultHash = null;
+
+        if(Password_verify($request->confirm_password, $data->password))
+        {
+            $DefaultPassword = bcrypt($request->password);
+            $DefaultHash = hash('sha256', $request->password);
+        }
+        else {
+            $DefaultPassword = $data->password;
+            $DefaultHash = $data->DefaultHash;
+        }
+
+
+        $validation = $request->validate([
+            'nama_lengkap' => 'required',
+            'nama_panggilan' => 'required',
+            'tanggal' => 'required',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'no_telp' => 'required',
+            'username' => 'required',
+            'aktif' => 'required',
+            'alamat' => 'required',
+            'deskripsi' => 'required'
+        ], [
+            'nama_lengkap.required' => 'Nama tidak boleh kosong',
+            'nama_panggilan.required' => 'Nama Panggilan tidak boleh kosong',
+            'tanggal.required' => 'Tanggal tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
+            'agama.required' => 'Agama tidak boleh kosong','no_telp' => 'required',
+            'username.required' => 'Username tidak boleh kosong',
+            'aktif.required' => 'Status tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong'
+        ]);
+
+        $filePath = null;
+        if(isset($request->file))
+        {
+            $file = $request->file('file'); 
+            $filePath = $file->store('AdminMasterStaff', 'public');
+        }
+
+        $roleGuru = Role::where('name', 'Staff')->first();
+
+        $data->update([
+            'nama_lengkap' => $request->nama,
+            'nama_panggilan' => $request->nama_panggilan,
+            'tanggal' => $request->tanggal,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'agama' => $request->agama,
+            'aktif' => $request->aktif,
+            'photo' => $filePath,
+            'no_telp' => $request->no_telp,
+            'username' => $request->username,
+            'password' => $DefaultPassword,
+            'DefaultHash' => $DefaultHash,
+            'role_id' => $roleGuru->id,
+            'alamat' => $request->alamat,
+            'deskripsi' => $request->deskripsi
+        ]);
 
         return redirect()->route('staff_master_page')->with('success', 'data berhasil diupdate');
     }

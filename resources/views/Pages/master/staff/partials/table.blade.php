@@ -1,23 +1,28 @@
 @foreach ($dataStaff as $item)
     <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $item->nama_lengkap }}</td>
-        <td>{{ $item->nama_panggilan }}</td>
-        <td>{{ $item->tanggal_bergabung }}</td>
-        <td>{{ $item->jenis_kelamin }}</td>
-        <td>{{ $item->agama }}</td>
-        <td>{{ $item->email}}</td>
-        <td>{{ $item->no_telp }}</td>
-        <td>{{ $item->alamat }}</td>
-        <!--<td>{{ $item->photo }}</td>-->
-        <td>{{ $item->username }}</td>
-        <td>{{ $item->password }}</td>
+        @if ($item->photo)
+            <td><img src="{{ $item->photo }}" width="50" height="50" /></td>
+        @else
+            <td><span class="badge badge-soft-danger">Tidak Ada</span></td>
+        @endif
+        <td>{{ $item->nama_lengkap }} </td>
+        <td>{{ $item->tanggal_bergabung }} </td>
+        <td>{{ $item->jenis_kelamin }} </td>
+        <td>{{ $item->agama }} </td>
+        @if ($item->aktif == 'ya')
+            <td><span class="badge badge-soft-success">{{ $item->aktif }}</span></td>
+        @else
+            <td><span class="badge badge-soft-danger">{{ $item->aktif }}</span></td>
+        @endif
         <td>{{ $item->aktif }}</td>
         <td style="width: 100px">
-            <a class="btn btn-outline-info btn-sm edit" title="Edit" href="{{ route('staff_master_edit', ['uuid' => $item->uuid]) }}">
+            <a class="btn btn-outline-info btn-sm edit" title="Edit"
+                href=" {{ route('staff_master_edit', ['uuid' => $item->uuid]) }} ">
                 <i class="fas fa-pencil-alt"></i>
             </a>
-            <button type="button" class="btn btn-outline-danger btn-sm edit delete-button" title="Delete" id="delete-button">
+            <button type="button" class="btn btn-outline-danger btn-sm delete-button" title="Delete" id="delete-button"
+                data-uuid="{{ $item->uuid }}">
                 <i class="fas fa-trash-alt"></i>
             </button>
         </td>
@@ -25,7 +30,7 @@
 @endforeach
 
 <tr>
-   <td colspan="7" class="text-center">
-       {{ $dataStaff->links() }}
-   </td>
+    <td colspan="7" class="text-center">
+        {{ $dataStaff->links() }}
+    </td>
 </tr>

@@ -49,15 +49,15 @@ class AuthController extends Controller
             {
                 return redirect()->route('admin_dashboard')->with('success', 'berhasil login');
             }
-            elseif($guru->attemptWithoutHash($credentials))
+            elseif($guru->attemptWithHash($credentials))
             {
                 return redirect()->route('Guru_Dashboard');
             }
-            elseif($siswa->attemptWithoutHash($credentials))
+            elseif($siswa->attemptWithHash($credentials))
             {
                 return redirect()->route('Siswa_Dashboard');
             }
-            elseif($orangtua->attemptWithoutHash($credentials))
+            elseif($orangtua->attemptWithHash($credentials))
             {
                 return redirect()->route('Orangtua_Dashboard');
             }

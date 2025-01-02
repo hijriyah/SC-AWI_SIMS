@@ -32,7 +32,7 @@ class orangtua extends Authenticatable
         'role_id'
     ];
 
-    public function attemptWithoutHash($credentials)
+    public function attemptHash($credentials)
     {
         $user = $this->where('username', $credentials['username'])->first();
 

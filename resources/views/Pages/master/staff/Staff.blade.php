@@ -112,7 +112,7 @@
                             <div style="margin-top: 0px;">
                                 <h4 class="card-title" style="width: 100px;"><b>Daftar Staff</b></h4>
                             </div>
-                            <div class="col-md-3" style="margin-left: 700px; margin-right: 10px;">
+                            <div class="col-md-5" style="margin-left: 260px; margin-right: 10px;">
                                 <input class="form-control" placeholder="Search" style="height: 32px;" id="search" name="search" onkeyup="SearchData()" />     
                             </div> 
                             <div style="margin-top: 0px; width: 100px;">
@@ -125,6 +125,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Foto</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
                                     <th>Jenis Kelamin</th>
@@ -137,10 +138,20 @@
                                 @foreach ($dataStaff as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        @if($item->photo)
+                                            <td><img src="{{ $item->photo }}" width="50" height="50" /></td>
+                                        @else
+                                            <td><span class="badge badge-soft-danger">Tidak Ada</span></td>
+                                        @endif
                                         <td>{{ $item->nama_lengkap }} </td>
                                         <td>{{ $item->tanggal_bergabung }} </td>
                                         <td>{{ $item->jenis_kelamin }} </td>
                                         <td>{{ $item->agama }} </td>
+                                        @if($item->aktif == "ya")
+                                            <td><span class="badge badge-soft-success">{{ $item->aktif }}</span></td>
+                                        @else
+                                            <td><span class="badge badge-soft-danger">{{ $item->aktif }}</span></td>
+                                        @endif
                                         <td>{{ $item->aktif }}</td>
                                         <td style="width: 100px">
                                             <a class="btn btn-outline-info btn-sm edit" title="Edit" href=" {{ route('staff_master_edit', ['uuid' => $item->uuid]) }} ">

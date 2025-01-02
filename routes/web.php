@@ -116,7 +116,7 @@ Route::get('/login', [AuthController::class, 'login_page'])->name('login');
 Route::post('/process', [AuthController::class, 'login_process'])->name('login-process');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('administrator')->middleware('auth')->group(function() {
+Route::prefix('administrator')->middleware('auth', 'staff')->group(function() {
    
    Route::prefix('dashboard')->group(function () {
       Route::get('/', [PageController::class, 'AdminDashboard'])->name('admin_dashboard');

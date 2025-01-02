@@ -16,9 +16,10 @@ class staff extends Authenticatable
     use HasFactory, Uuid;
 
     protected $fillable = [
-        'nama',
+        'nama_lengkap',
+        'nama_panggilan',
         'deskripsi',
-        'tanggal',
+        'tanggal_bergabung',
         'jenis_kelamin',
         'agama',
         'no_telp',
@@ -26,17 +27,20 @@ class staff extends Authenticatable
         'aktif',
         'username',
         'password',
+        'DefaultHash',
         'role_id'
     ];
 
-    public function attemptWithoutHash($credentials)
+    public function attemptHash($credentials)
     {
         $user = $this->where('username', $credentials['username'])->first();
 
-        if ($user && $user->password === $credentials['password']) {
+        if (password_verify($credentials['password'], $user->password)) {
+
             session([
                 'admin_name' => $user->username,
             ]);
+            
             Auth::guard('staff')->login($user);
             return true;
         }

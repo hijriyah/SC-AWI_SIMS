@@ -38,6 +38,9 @@
                                 <label class="form-label">Nama Lengkap</label>
                                 <input class="form-control" name="nama_lengkap" />
                                 <!-- input-group -->
+                                @error('nama_lengkap')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -45,21 +48,21 @@
                                 <label class="form-label">Nama Panggilan</label>
                                 <input class="form-control" name="nama_panggilan" />
                                 <!-- input-group -->
+                                @error('nama_panggilan')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-4">
                                 <label class="form-label">Tanggal Gabung</label>
                                 <div class="input-group" id="datepicker3">
-                                    {{-- <input type="text" class="form-control" placeholder="yyyy/mm/dd"
-                                        data-date-container='#datepicker3' data-provide="datepicker"
-                                        data-date-format="yyyy-mm-dd"
-                                        data-date-multidate="true" name="tanggal_bergabung"> --}}
                                     <input type="date" class="form-control" placeholder="yyyy-mm-dd" name="tanggal_bergabung" />
-                                    {{-- <span class="input-group-text"><i
-                                            class="mdi mdi-calendar"></i></span> --}}
                                 </div>
                                 <!-- input-group -->
+                                @error('tanggal_bergabung')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -73,6 +76,9 @@
                                     <option value="laki-laki">Laki-laki</option>
                                     <option value="perempuan">Perempuan</option>
                                 </select>
+                                @error('jenis_kelamin')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                            </div>
                        </div>
                        <div class="col-lg-6">
@@ -87,6 +93,9 @@
                                     <option value="hindu">Hindu</option>
                                     <option value="konghucu">Konghucu</option>
                                 </select>
+                                @error('agama')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                        </div>
                        <div class="col-lg-6">
@@ -94,6 +103,9 @@
                                 <label class="form-label">Email</label>
                                 <input class="form-control" name="email" />
                                 <!-- input-group -->
+                                @error('email')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -105,13 +117,18 @@
                                 <input type="text" class="form-control" name="no_telp" />
                                 <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
                             </div>
+                            @error('no_telp')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Alamat</label>
                             <div class="input-group">
                                 <input type="textarea" class="form-control" name="alamat" />
-                                
                             </div>
+                            @error('alamat')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Foto</label>
@@ -126,10 +143,16 @@
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Username</label>
                             <input type="username" class="form-control" name="username" placeholder="username" name="username" />
+                            @error('username')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Password</label>
                             <input type="password" class="form-control" name="password" placeholder="password" name="password" />
+                            @error('password')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -141,16 +164,10 @@
                                 <option value="ya">ya</option>
                                 <option value="tidak">tidak</option>
                             </select>
+                            @error('aktif')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
-                        {{-- <div class="col-lg-6 mb-4">
-                            <label class="form-label">Role</label>
-                            <select class="form-select" name="role"> 
-                                <option selected>Pilih</option> 
-                                @foreach ($dataRole as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                     </div>
                     
 
