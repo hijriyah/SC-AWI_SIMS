@@ -71,7 +71,6 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $validation = $request->validate([
             'nama_lengkap' => 'required',
             'nama_panggilan' => 'required',
@@ -89,7 +88,8 @@ class StaffController extends Controller
             'nama_panggilan.required' => 'Nama Panggilan tidak boleh kosong',
             'tanggal_bergabung.required' => 'Tanggal tidak boleh kosong',
             'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
-            'agama.required' => 'Agama tidak boleh kosong','no_telp' => 'required',
+            'agama.required' => 'Agama tidak boleh kosong',
+            'no_telp.required' => 'No Telepon tidak boleh kosong',
             'username.required' => 'Username tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
             'aktif.required' => 'Status tidak boleh kosong',
@@ -104,7 +104,7 @@ class StaffController extends Controller
             $filePath = $file->store('AdminMasterStaff', 'public');
         }
 
-        $roleGuru = Role::where('name', 'Staff')->first();
+        $roleStaff = Role::where('name', 'Staff')->first();
 
         $data = staff::create([
             'nama_lengkap' => $request->nama_lengkap,
@@ -116,9 +116,10 @@ class StaffController extends Controller
             'photo' => $filePath,
             'no_telp' => $request->no_telp,
             'username' => $request->username,
+            'email' => $request->email,
             'password' => bcrypt($request->password),
-            'DefaultHash' => hash('256', $request->password),
-            'role_id' => $roleGuru->id,
+            'DefaultHash' => hash('sha256', $request->password),
+            'role_id' => $roleStaff->id,
             'alamat' => $request->alamat,
             'deskripsi' => $request->deskripsi
         ]);
@@ -162,19 +163,17 @@ class StaffController extends Controller
         //
         $data = staff::findbyUuid($uuid);
 
-        $DefaultPassword = null;
-        $DefaultHash = null;
+        $DefaultPassword = $data->password;
+        $DefaultHash = $data->DefaultHash;
 
-        if(Password_verify($request->confirm_password, $data->password))
+        if(isset($request->confirm_password))
         {
-            $DefaultPassword = bcrypt($request->password);
-            $DefaultHash = hash('sha256', $request->password);
+            if(Password_verify($request->confirm_password, $data->password))
+            {
+                $DefaultPassword = bcrypt($request->password);
+                $DefaultHash = hash('sha256', $request->password);
+            }
         }
-        else {
-            $DefaultPassword = $data->password;
-            $DefaultHash = $data->DefaultHash;
-        }
-
 
         $validation = $request->validate([
             'nama_lengkap' => 'required',
@@ -206,7 +205,7 @@ class StaffController extends Controller
             $filePath = $file->store('AdminMasterStaff', 'public');
         }
 
-        $roleGuru = Role::where('name', 'Staff')->first();
+        $roleStaff = Role::where('name', 'Staff')->first();
 
         $data->update([
             'nama_lengkap' => $request->nama,
@@ -220,7 +219,7 @@ class StaffController extends Controller
             'username' => $request->username,
             'password' => $DefaultPassword,
             'DefaultHash' => $DefaultHash,
-            'role_id' => $roleGuru->id,
+            'role_id' => $roleStaff->id,
             'alamat' => $request->alamat,
             'deskripsi' => $request->deskripsi
         ]);

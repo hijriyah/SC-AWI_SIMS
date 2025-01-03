@@ -47,17 +47,14 @@
                                 <!-- input-group -->
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="mb-4">
                                 <label class="form-label">Tanggal Gabung</label>
                                 <div class="input-group" id="datepicker3">
-                                    {{-- <input type="text" class="form-control" placeholder="yyyy/mm/dd"
-                                        data-date-container='#datepicker3' data-provide="datepicker"
-                                        data-date-format="yyyy-mm-dd"
-                                        data-date-multidate="true" name="tanggal_bergabung"> --}}
                                     <input type="date" class="form-control" placeholder="yyyy-mm-dd" name="tanggal_bergabung" value="{{ $dataEdit->tanggal_bergabung }}" />
-                                    {{-- <span class="input-group-text"><i
-                                            class="mdi mdi-calendar"></i></span> --}}
                                 </div>
                                 <!-- input-group -->
                             </div>
@@ -112,13 +109,20 @@
                                 <input type="textarea" class="form-control" name="alamat" value="{{ $dataEdit->alamat }}" />
                                 
                             </div>
-                        </div>
+                        </div>                       
+                    </div>
+
+                    <div class="row">
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Foto</label>
                             <div class="input-group">
                                 <input type="file" class="form-control" accept=".jpg, .jpeg, .png" name="file" value="{{ $dataEdit->photo }}" />
                                 <span class="input-group-text"><i class="mdi mdi-panorama"></i></span>
                             </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="password" name="confirm_password" />
                         </div>
                     </div>
                     
@@ -128,8 +132,8 @@
                             <input type="username" class="form-control" name="username" placeholder="username" name="username" value="{{ $dataEdit->username }}" />
                         </div>
                         <div class="col-lg-6 mb-4">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="password" name="password" value="{{ $dataEdit->password }}" />
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control"  placeholder="password" name="new_password" />
                         </div>
                     </div>
 
@@ -142,17 +146,18 @@
                                 <option value="tidak" {{ old('aktif', $dataEdit->aktif) == "tidak" ? 'selected' : ''}}>tidak</option>
                             </select>
                         </div>
-                        {{-- <div class="col-lg-6 mb-4">
-                            <label class="form-label">Role</label>
-                            <select class="form-select" name="role"> 
-                                <option selected>Pilih</option> 
-                                @foreach ($dataRole as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                     </div>
-                    
+
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <label class="form-label">Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi">{{ $dataEdit->deskripsi }}</textarea>
+                            @error('deskripsi')
+                                <span class="text-sm text-danger">{{ $message }}<span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-sm btn-success" style="height: 29px; margin-right: 10px;"><i class="mdi mdi-telegram"></i> Kirim</button>
                         <a href="{{ route('staff_master_page') }}" class="btn btn-sm btn-danger" style="height: 29px;"><i class="mdi mdi-keyboard-backspace"></i> Kembali</a>

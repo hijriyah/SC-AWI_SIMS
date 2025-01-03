@@ -66,7 +66,6 @@
                             </div>
                         </div>
                     </div>
-                       
                     <div class="row">
                        <div class="col-lg-6">
                            <div class="mt-4 mt-lg-0 mb-3">
@@ -169,7 +168,16 @@
                             @enderror
                         </div>
                     </div>
-                    
+
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <label class="form-label" for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" style="height: 70px;" id="deskripsi" name="deskripsi"></textarea>
+                            @error('deksipsi')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-sm btn-success" style="height: 29px; margin-right: 10px;"><i class="mdi mdi-telegram"></i> Kirim</button>

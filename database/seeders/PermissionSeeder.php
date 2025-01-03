@@ -58,6 +58,26 @@ class PermissionSeeder extends Seeder
                 ...$menuRaport
             ]),
 
+            'Staff' => [
+                'Dashboard',
+                ...$menuMaster,
+                ...$menuAkademik,
+                ...$menuKehadiran,
+                ...$menuAlQuran,
+                ...$menuQA,
+                ...$menuUjian,
+                ...$menuPenilaian,
+                ...$menuPemberitahuan,
+                ...$menuLaporan,
+                ...$menuJurnal,
+                ...$menuKesiswaanBK,
+                ...$menuBukuMedia,
+                ...$menuAsetSekolah,
+                ...$menuPenjadwalan,
+                ...$menuSettingAdministrator,
+                ...$menuRaport
+            ],
+
             'Guru' => [
                 'Dashboard',
                 'Master',

@@ -25,6 +25,7 @@ class staff extends Authenticatable
         'no_telp',
         'alamat',
         'aktif',
+        'email',
         'username',
         'password',
         'DefaultHash',
