@@ -210,17 +210,16 @@ class GuruController extends Controller
 
         $roleGuru = Role::where('name', 'Guru')->first();
 
-        $DefaultPassword = null;
-        $DefaultHash = null;
+        $DefaultPassword = $data->password;
+        $DefaultHash = $data->DefaultHash;
 
-        if(password_verify($request->confirm_password, $data->password))
+        if(isset($request->confirm_password))
         {
-            $DefaultPassword = bcrypt($request->new_password);
-            $DefaultHash = hash('sha256', $request->new_password);
-        }
-        else {
-            $DefaultPassword = $data->password;
-            $DefaultHash = $data->DefaultHash;
+            if(Password_verify($request->confirm_password, $data->password))
+            {
+                $DefaultPassword = bcrypt($request->new_password);
+                $DefaultHash = hash('sha256', $request->new_password);
+            }
         }
 
         $data->update([

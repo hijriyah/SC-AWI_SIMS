@@ -75,18 +75,7 @@
                                 <!-- input-group -->
                             </div>
                         </div>
-                        <div class="col-lg-6 mb-4">
-                            <label class="form-label">No telp</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="No telp" name="no_telp" value="{{ $dataEdit->no_telp }}" />
-                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
-                            </div>
-                        </div>
-                        
-                    </div>
-                       
-                    <div class="row">
-                       <div class="col-lg-6">
+                        <div class="col-lg-6">
                             <label class="form-label">Alamat</label>
                             <textarea class="form-control" name="alamat">{{ $dataEdit->alamat }}</textarea>
                         </div>
@@ -97,6 +86,32 @@
                                 <span class="input-group-text"><i class="mdi mdi-panorama"></i></span>
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <label class="form-label">No telp</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="No telp" name="no_telp" value="{{ $dataEdit->no_telp }}" />
+                                <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <label class="form-label">Username</label>
+                            <input type="username" class="form-control" name="username" placeholder="username" value="{{ $dataEdit->username }}" />
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="new_password" placeholder="New Password"/>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-12 mb-4">
                             <label class="form-label">Aktif</label>
                             <select class="form-select" name="aktif">
@@ -105,23 +120,6 @@
                                 <option value="tidak" {{ old('aktif', $dataEdit->aktif) == "tidak" ? 'selected' : ''}}>tidak</option>
                             </select>
                         </div>
-                        <div class="col-lg-6 mb-4">
-                            <label class="form-label">Username</label>
-                            <input type="username" class="form-control" name="username" placeholder="username" name="username" value="{{ $dataEdit->username }}" />
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="password" name="password" value="{{ $dataEdit->password }}" />
-                        </div>
-                        {{-- <div class="col-lg-6 mb-4">
-                            <label class="form-label">Role</label>
-                            <select class="form-select" name="role"> 
-                                <option selected>Pilih</option> 
-                                @foreach ($dataRole as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                     </div>
                    
                     <div class="d-flex justify-content-end">

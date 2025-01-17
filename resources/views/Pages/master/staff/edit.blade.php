@@ -38,6 +38,9 @@
                                 <label class="form-label">Nama Lengkap</label>
                                 <input class="form-control" name="nama_lengkap" value="{{ $dataEdit->nama_lengkap }}" />
                                 <!-- input-group -->
+                                @error('nama_lengkap')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -45,6 +48,9 @@
                                 <label class="form-label">Nama Panggilan</label>
                                 <input class="form-control" name="nama_panggilan" value="{{ $dataEdit->nama_panggilan }}" />
                                 <!-- input-group -->
+                                @error('nama_panggilan')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -57,6 +63,9 @@
                                     <input type="date" class="form-control" placeholder="yyyy-mm-dd" name="tanggal_bergabung" value="{{ $dataEdit->tanggal_bergabung }}" />
                                 </div>
                                 <!-- input-group -->
+                                @error('tanggal_bergabung')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -70,6 +79,9 @@
                                     <option value="laki-laki" {{ old('jenis_kelamin', $dataEdit->jenis_kelamin) == 'laki-laki' ? 'selected' : ''}}>laki-laki</option>
                                     <option value="perempuan" {{ old('jenis_kelamin', $dataEdit->jenis_kelamin) == 'perempuan' ? 'selected' : ''}}>perempuan</option>
                                 </select>
+                                @error('jenis_kelamin')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                            </div>
                        </div>
                        <div class="col-lg-6">
@@ -84,13 +96,18 @@
                                     <option value="hindu" {{ old('agama', $dataEdit->agama) == 'hindu' ? 'selected' : ''}}>hindu</option>
                                     <option value="konghucu"{{ old('agama', $dataEdit->agama) == 'konghucu' ? 'selected' : ''}}>konghucu</option>
                                 </select>
+                                @error('agama')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                        </div>
                        <div class="col-lg-6 mb-4">
                             <label class="form-label">Email</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="email" value="{{ $dataEdit->email }}" />
-                                
+                                @error('email')
+                                    <span class="text-danger text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -102,13 +119,16 @@
                                 <input type="text" class="form-control" placeholder="No telp" name="no_telp" value="{{ $dataEdit->no_telp }}" />
                                 <span class="input-group-text"><i class="mdi mdi-phone"></i></span>
                             </div>
+                            @error('no_telp')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Alamat</label>
-                            <div class="input-group">
-                                <input type="textarea" class="form-control" name="alamat" value="{{ $dataEdit->alamat }}" />
-                                
-                            </div>
+                            <input type="textarea" class="form-control" name="alamat" value="{{ $dataEdit->alamat }}" />
+                            @error('alamat')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>                       
                     </div>
 
@@ -145,6 +165,9 @@
                                 <option value="ya" {{ old('aktif', $dataEdit->aktif) == "ya" ? 'selected' : ''}}>ya</option>
                                 <option value="tidak" {{ old('aktif', $dataEdit->aktif) == "tidak" ? 'selected' : ''}}>tidak</option>
                             </select>
+                            @error('aktif')
+                                <span class="text-danger text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 

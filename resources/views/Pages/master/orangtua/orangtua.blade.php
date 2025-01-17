@@ -113,7 +113,7 @@
                             <div style="margin-top: 0px;">
                                 <h4 class="card-title" style="width: 130px;"><b>Daftar Orangtua</b></h4>
                             </div>
-                            <div class="col-md-3" style="margin-left: 680px; margin-right: 10px;">
+                            <div class="col-md-5" style="margin-left: 250px; margin-right: 10px;">
                                 <input class="form-control" placeholder="Search" style="height: 32px;" id="search" name="search" onkeyup="SearchData()" />     
                             </div>
                             <a class="btn btn-sm btn-success" style="height: 29px; !important" href="{{ route('orangtua_master_add') }}"><i class="mdi mdi-plus"></i> Tambah</a>
@@ -127,6 +127,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Foto</th>
                                     <th>Nama Ayah</th>
                                     <th>Nama Ibu</th>
                                     <th>Email</th>
@@ -139,11 +140,20 @@
                                 @foreach ($dataOrangtua as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        @if($item->photo)
+                                            <td><img src="{{ $item->photo }}" width="50" height="50" /></td>
+                                        @else 
+                                            <td><span class="badge badge-soft-danger">Tidak Ada</span></td>
+                                        @endif
                                         <td>{{ $item->nama_ayah }}</td>
                                         <td>{{ $item->nama_ibu }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->no_telp }}</td>
-                                        <td>{{ $item->aktif }}</td>                      
+                                        @if($item->aktif == "ya")
+                                            <td><span class="badge badge-soft-success">{{ $item->aktif }}</span></td>     
+                                        @else
+                                            <td><span class="badge badge-soft-success">{{ $item->aktif }}</span></td>          
+                                        @endif            
                                         <td style="width: 100px">
                                             <a class="btn btn-outline-info btn-sm edit" title="Edit" href=" {{ route('orangtua_master_edit', ['uuid' => $item->uuid]) }} ">
                                                 <i class="fas fa-pencil-alt"></i>

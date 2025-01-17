@@ -25,9 +25,9 @@ class WhatsAppSchedule implements ShouldQueue
     public function __construct($message)
     {
         //
-        $this->ApiKey = "G7qHnUlDNLoumkh9VuSVkqPGWgA7vMhn";
-        $this->sender = "6282147482020";
-        $this->number = "6283845205871";
+        $this->ApiKey = "MB05U1JQ5g4jt6oKIA4K6uXqhk9aX1TE";
+        $this->sender = "6281376767574";
+        $this->number = "6281330181664";
         $this->message = $message;
     }
 

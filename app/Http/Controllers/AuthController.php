@@ -36,6 +36,9 @@ class AuthController extends Controller
             // administrator Authentication
             $users = new User;
 
+            // staff authentication
+            $satff = new staff;
+
             // guru authentication
             $guru = new guru;
 
@@ -48,6 +51,10 @@ class AuthController extends Controller
             if($users->attemptWithHash($credentials))
             {
                 return redirect()->route('admin_dashboard')->with('success', 'berhasil login');
+            }
+            elseif($staff->attemptWithHash($credentials))
+            {
+                return redirect()->route('admin_dasboard');
             }
             elseif($guru->attemptWithHash($credentials))
             {

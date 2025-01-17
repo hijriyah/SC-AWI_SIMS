@@ -97,7 +97,9 @@
                                 <span class="input-group-text"><i class="mdi mdi-panorama"></i></span>
                             </div>
                         </div>
+                    </div>
                         
+                    <div class="row">
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Username</label>
                             <input type="username" class="form-control" name="username" placeholder="username" name="username" />
@@ -106,7 +108,9 @@
                             <label class="form-label">Password</label>
                             <input type="password" class="form-control" name="password" placeholder="password" name="password" />
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col-lg-12 mb-4">
                             <label class="form-label">Aktif</label>
                             <select class="form-select" name="aktif">
@@ -115,6 +119,7 @@
                                 <option value="tidak">tidak</option>
                             </select>
                         </div>
+                    </div>
 
                         {{-- <div class="col-lg-6 mb-4">
                             <label class="form-label">Role</label>
@@ -125,8 +130,7 @@
                                 @endforeach
                             </select>
                         </div> --}}
-                        
-                    </div>
+
                        
                   
                     <div class="d-flex justify-content-end">

@@ -75,7 +75,6 @@ class OrangtuaController extends Controller
         //
         // dd($request->all());
         $validation = $request->validate([
-            // 'nama' => 'required',
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
             'pekerjaan_ayah' => 'required',
@@ -86,6 +85,17 @@ class OrangtuaController extends Controller
             'username' => 'required',
             'password' => 'required',
             'aktif' => 'required'
+        ], [
+            'nama_ayah.required' => 'Nama Ayah tidak boleh kosong',
+            'nama_ibu.required' => 'Nama Ibu tidak boleh kosong',
+            'pekerjaan_ayah.required' => 'Pekerjaan Ayah tidak boleh kosong',
+            'pekerjaan_ibu.required' => 'Pekerjaan ibu tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',            
+            'no_telp.required' => 'No Telp tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'username.required' => 'Username tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+            'aktif.required' => 'Status tidak boleh kosong'
         ]);
 
         $filePath = null;
@@ -152,6 +162,49 @@ class OrangtuaController extends Controller
     {
         //
         $data = orangtua::findbyUuid($uuid);
+
+        $validation = $request->validate([
+            'nama_ayah' => 'required',
+            'nama_ibu' => 'required',
+            'pekerjaan_ayah' => 'required',
+            'pekerjaan_ibu' => 'required',
+            'email' => 'required',            
+            'no_telp' => 'required',
+            'alamat' => 'required',
+            'username' => 'required',
+            'aktif' => 'required'
+        ], [
+            'nama_ayah.required' => 'Nama Ayah tidak boleh kosong',
+            'nama_ibu.required' => 'Nama Ibu tidak boleh kosong',
+            'pekerjaan_ayah.required' => 'Pekerjaan Ayah tidak boleh kosong',
+            'pekerjaan_ibu.required' => 'Pekerjaan ibu tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',            
+            'no_telp.required' => 'No Telp tidak boleh kosong',
+            'alamat.required' => 'Alamat tidak boleh kosong',
+            'username.required' => 'Username tidak boleh kosong',
+            'aktif.required' => 'Status tidak boleh kosong'
+        ]);
+
+        $DefaultPassword = $data->password;
+        $DefaultHash = $data->DefaultHash;
+
+        if(isset($request->confirm_password))
+        {
+            if(Password_verify($request->confirm_password, $data->password))
+            {
+                $DefaultPassword = bcrypt($request->new_password);
+                $DefaultHash = hash('sha256', $request->new_password);
+            }
+        }
+
+        $filePath = null;
+        if(isset($request->file))
+        {
+            $file = $request->file('file'); 
+            $filePath = $file->store('AdminMasterSiswa', 'public');
+        }
+
+        $roleOrangtua = Role::where('name', 'Orang tua')->first();
         
         $data->update([
             'nama_ayah' => $request->nama_ayah,

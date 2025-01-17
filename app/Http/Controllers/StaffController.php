@@ -78,6 +78,7 @@ class StaffController extends Controller
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'no_telp' => 'required',
+            'email' => 'required',
             'username' => 'required',
             'password' => 'required',
             'aktif' => 'required',
@@ -90,6 +91,7 @@ class StaffController extends Controller
             'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
             'agama.required' => 'Agama tidak boleh kosong',
             'no_telp.required' => 'No Telepon tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
             'username.required' => 'Username tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
             'aktif.required' => 'Status tidak boleh kosong',
@@ -161,6 +163,8 @@ class StaffController extends Controller
     public function update(Request $request, $uuid)
     {
         //
+        // dd($request->all());
+
         $data = staff::findbyUuid($uuid);
 
         $DefaultPassword = $data->password;
@@ -170,18 +174,19 @@ class StaffController extends Controller
         {
             if(Password_verify($request->confirm_password, $data->password))
             {
-                $DefaultPassword = bcrypt($request->password);
-                $DefaultHash = hash('sha256', $request->password);
+                $DefaultPassword = bcrypt($request->new_password);
+                $DefaultHash = hash('sha256', $request->new_password);
             }
         }
 
         $validation = $request->validate([
             'nama_lengkap' => 'required',
             'nama_panggilan' => 'required',
-            'tanggal' => 'required',
+            'tanggal_bergabung' => 'required',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'no_telp' => 'required',
+            'email' => 'required',
             'username' => 'required',
             'aktif' => 'required',
             'alamat' => 'required',
@@ -189,9 +194,11 @@ class StaffController extends Controller
         ], [
             'nama_lengkap.required' => 'Nama tidak boleh kosong',
             'nama_panggilan.required' => 'Nama Panggilan tidak boleh kosong',
-            'tanggal.required' => 'Tanggal tidak boleh kosong',
+            'tanggal_bergabung.required' => 'Tanggal tidak boleh kosong',
             'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong',
-            'agama.required' => 'Agama tidak boleh kosong','no_telp' => 'required',
+            'agama.required' => 'Agama tidak boleh kosong',
+            'no_telp.required' => 'No Telepon tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
             'username.required' => 'Username tidak boleh kosong',
             'aktif.required' => 'Status tidak boleh kosong',
             'alamat.required' => 'Alamat tidak boleh kosong',
@@ -208,13 +215,14 @@ class StaffController extends Controller
         $roleStaff = Role::where('name', 'Staff')->first();
 
         $data->update([
-            'nama_lengkap' => $request->nama,
+            'nama_lengkap' => $request->nama_lengkap,
             'nama_panggilan' => $request->nama_panggilan,
-            'tanggal' => $request->tanggal,
+            'tanggal_bergabung' => $request->tanggal_bergabung,
             'jenis_kelamin' => $request->jenis_kelamin,
             'agama' => $request->agama,
             'aktif' => $request->aktif,
             'photo' => $filePath,
+            'email' => $request->email,
             'no_telp' => $request->no_telp,
             'username' => $request->username,
             'password' => $DefaultPassword,
