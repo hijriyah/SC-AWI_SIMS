@@ -4,10 +4,14 @@
 
 <script>
 
-$(document).ready(function () {
+document.addEventListener(("DOMContentLoaded"), function () {
     
     const inputElement = document.querySelector('#filepond');
     const pond = FilePond.create(inputElement);
+
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);
+
 
     FilePond.setOptions({
         server: {

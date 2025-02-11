@@ -4,10 +4,13 @@
 
 <script>
 
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function () {
     
     const inputElement = document.querySelector('#filepond');
     const pond = FilePond.create(inputElement);
+
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);
 
     FilePond.setOptions({
         server: {
@@ -108,7 +111,9 @@ $(document).ready(function () {
                                 <!-- input-group -->
                             </div>
                         </div>
-
+                    </div>
+                    
+                    <div class="row">
                         <div class="col-lg-6 mb-4">
                            <label class="form-label">Kelas</label>
                            <select class="form-select" placeholder="Pilih" name="id_kelas">
@@ -132,7 +137,9 @@ $(document).ready(function () {
                                 <!-- input-group -->
                             </div>
                         </div>
-
+                    </div>
+                    
+                    <div class="row">
                         <div class="col-lg-6 mb-4">
                             <label class="form-label">Cover Ebooks</label>
                             <div class="input-group">
@@ -143,28 +150,23 @@ $(document).ready(function () {
 
                         <div class="col-lg-6">
                             <div class="mb-4">
-                            <label class="form-label">File</label>
-                            <div class="input-group">
-                            <input type="file" 
-                            id="filepond"
-                            class="filepond"
-                            name="filepond[]" 
-                            data-allow-reorder="true"
-                            data-max-file-size="2MB"
-                            data-max-files="2" />
+                                <label class="form-label">File</label>
+                                    <input type="file" 
+                                    id="filepond"
+                                    class="filepond"
+                                    name="filepond[]" 
+                                    data-allow-reorder="true"
+                                    data-max-file-size="2MB"
+                                    data-max-files="2" />
 
-                            @error('file')
-                                <span class="text-sm text-danger">{{ $message }}</span>
-                            @enderror
+                                    @error('file')
+                                        <span class="text-sm text-danger">{{ $message }}</span>
+                                    @enderror
                             </div>
                         </div>
                     </div>
-
-                        
-                    </div>
-                       
                     
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end mt-4">
                         <button type="submit" class="btn btn-sm btn-success" style="height: 29px; margin-right: 10px;"><i class="mdi mdi-telegram"></i> Kirim</button>
                         <a href="{{ route('bukumedia_ebooks_page') }}" class="btn btn-sm btn-danger" style="height: 29px;"><i class="mdi mdi-keyboard-backspace"></i> Kembali</a>
                     </div>

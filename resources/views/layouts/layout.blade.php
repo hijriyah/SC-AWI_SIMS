@@ -11,7 +11,7 @@
          <meta name="csrf-token" content="{{ csrf_token() }}">
          {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}">
             <script src="{{ mix('/js/app.js') }}"></script> --}}
-            @vite(['resources/js/app.js', 'resources/css/app.css'])
+         {{-- @vite(['resources/js/app.js', 'resources/css/app.css']) --}}
 
          <!-- App favicon -->
          <link rel="shortcut icon" href="{{ asset('Qovex/HTML/dist/assets/images/favicon.ico') }}">
@@ -86,9 +86,19 @@
       <script src="{{ asset('Qovex/HTML/dist/assets/js/pages/form-advanced.init.js') }}"></script> --> --}}
       {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
+
+      <link href="https://unpkg.com/filepond/dist/filepond.min.css" rel="stylesheet">
+      <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet">
       <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
       <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-      <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+      <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
+
+      <script>
+         document.addEventListener("DOMContentLoaded", () => {
+            console.log(FilePond);
+         });
+      </script>
+      
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       {{-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js" integrity="sha512-K/oyQtMXpxI4+K0W7H25UopjM8pzq0yrVdFdG21Fh5dBe91I40pDd9A4lzNlHPHBIP2cwZuoxaUSX0GJSObvGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

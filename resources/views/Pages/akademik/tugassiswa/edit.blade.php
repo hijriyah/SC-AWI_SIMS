@@ -4,7 +4,7 @@
 
 <script>
 
-$(document).ready(function () {
+document.addeventListener("DOMCOntentLoaded", function () {
 
     const inputElement = document.querySelector('#filepond');
     // const pond = FilePond.create(inputElement);
@@ -12,6 +12,9 @@ $(document).ready(function () {
         allowFileSizeValidation: true,
         maxFileSize: '2MB'
     });
+
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+    FilePond.registerPlugin(FilePondPluginFileValidateSize);
 
     FilePond.setOptions({
         storeAsFile: true,

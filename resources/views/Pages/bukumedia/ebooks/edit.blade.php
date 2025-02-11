@@ -4,7 +4,7 @@
 
 <script>
 
-$(document).ready(function () {
+document.addeventListener("DOMContentLoaded", function () {
 
     const inputElement = document.querySelector('#filepond');
     // const pond = FilePond.create(inputElement);

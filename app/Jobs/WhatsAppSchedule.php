@@ -27,7 +27,7 @@ class WhatsAppSchedule implements ShouldQueue
         //
         $this->ApiKey = "MB05U1JQ5g4jt6oKIA4K6uXqhk9aX1TE";
         $this->sender = "6281376767574";
-        $this->number = "6281330181664";
+        $this->number = "6289633255566";
         $this->message = $message;
     }
 
